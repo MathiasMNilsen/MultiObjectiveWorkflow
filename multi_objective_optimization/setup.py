@@ -1,9 +1,5 @@
-import shutil
 import numpy as np
-import pandas as pd
 import datetime as dt
-
-from glob import glob
 
 # Imports from PET
 from popt.loop.ensemble_gaussian import GaussianEnsemble
@@ -24,7 +20,7 @@ def dummy_objective(pred_data, input_dict, true_order):
 if __name__ == '__main__':
     
     # Configurate
-    kwopt, kwsim, kwen = read_config.read_yaml('config.yaml')
+    _, kwsim, kwen = read_config.read_yaml('config.yaml')
 
     # Fix first reportpoint
     kwsim['reportpoint'][0] = dt.datetime(2020, 7, 2, 0, 0) 
