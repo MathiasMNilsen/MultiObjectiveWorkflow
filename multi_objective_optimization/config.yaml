@@ -1,7 +1,7 @@
 ensemble: 
   ne: 50
   transform: true
-  num_model: 50
+  num_models: 50
   state: [RATE_A1, RATE_A2, RATE_A3, RATE_A4, RATE_OP5, RATE_A5, RATE_A6]
 
   prior_RATE_A1:

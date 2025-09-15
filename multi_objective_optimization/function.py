@@ -5,7 +5,7 @@ def objectives(pred_data, input_dict, true_order):
     # Unpack some stuff
     kw_opt = input_dict
     report = true_order[1]
-    wind_power_ens = kw_opt['windpower']
+    wind_power_ens = np.load(kw_opt['windpower'])
     economic_conts = dict(kw_opt['npv_const'])
 
     # Define some variables
