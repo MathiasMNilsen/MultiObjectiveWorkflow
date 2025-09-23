@@ -16,7 +16,7 @@ file = np.load('init/ref_values.npz', allow_pickle=True)
 f1_ref = file['co2'].sum(axis=1).mean()
 f2_ref = file['npv'].mean()
 
-
+# Function to optimize a single Pareto point
 def optimize_pareto_point(weight, save_folder):
 
     # Objective function
@@ -34,7 +34,7 @@ def optimize_pareto_point(weight, save_folder):
         # Save data (if save = True)
         if save:
             np.savez(
-                f'{save_folder}/pareto_data', 
+                f'{save_folder}/pareto_point', 
                 pred_data = pred_data,
                 co2 = co2,
                 npv = npv,
@@ -63,15 +63,17 @@ def optimize_pareto_point(weight, save_folder):
     # Define callables
     func = lambda x,*args: ensemble.function(x,*args)
     grad = lambda x,*args: ensemble.gradient(x,*args)/cov[0,0]
-    hess = lambda x,*args: ensemble.hessian(x,*args)/cov[0,0]**2
+    hess = lambda x,*args: np.diag(np.diag(ensemble.hessian(x,*args)))/cov[0,0]**2
 
-    # Run Optimization
+    # Set options for line search
     options = {
         'save_folder': save_folder,
         'maxiter': 20,
-        'step_size_adapt': 1,  # step_size = 2*df/gTp
+        'step_size_adapt': 2,
+        'ftol': 1e-5
     }
 
+    # Run optimization
     res = LineSearch(
         fun=func,
         x=x0,
@@ -86,10 +88,11 @@ def optimize_pareto_point(weight, save_folder):
     # Get final CO2 and NPV
     def dummy_func(pred_data, input_dict, true_order):
         return weighted_sum(pred_data, input_dict, true_order, save=True)
-    dummy_ensemble = GaussianEnsemble(kwen, flow(kwsim), dummy_func)
-    dummy_ensemble.function(res.x)
     
-
+    ensemble.obj_func = dummy_func
+    ensemble.function(res.x)
+    
+    
 
 if __name__ == '__main__':
 

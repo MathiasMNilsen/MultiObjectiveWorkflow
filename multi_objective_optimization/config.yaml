@@ -43,7 +43,7 @@ ensemble:
 optim:
   maxiter: 20
   method: Newton-CG
-  step_size_adapt: 1
+  step_size_adapt: 2
 
 
 fwdsim:
