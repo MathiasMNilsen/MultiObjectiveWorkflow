@@ -28,14 +28,8 @@ def plot_pareto():
         en_co2_wind = file_wind['co2'].sum(axis=1)/1000
 
         for n in range(ne):
-
             # ensemble points
             ax.scatter(en_co2_wind[n], en_npv_wind[n], color=colors[w], s=5, alpha=0.7)
-    
-
-            # append data for each ensemble member
-            npv_wind.append(en_npv_wind[n])
-            co2_wind.append(en_co2_wind[n])
 
         # mean points
         ax.scatter(np.mean(en_co2_wind), np.mean(en_npv_wind), c=colors[w], s=40, edgecolors='black', label=rf'$\omega={we}$')
@@ -46,7 +40,7 @@ def plot_pareto():
     
 
     # polynomial fit for wind
-    z_wind = np.polyfit(co2_wind, npv_wind, 3)
+    z_wind = np.polyfit(co2_wind_mean, npv_wind_mean, 3)
     p_wind = np.poly1d(z_wind)
     x_wind = np.linspace(co2_wind_mean[0], co2_wind_mean[-1], 100)
     y_wind = p_wind(x_wind)
