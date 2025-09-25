@@ -58,23 +58,23 @@ TRACERS
 
 -- Grid dimension
 INCLUDE
-  '../../include/runspec/drogon.dimens' / -- exported by rms
+  '../../drogon_ensemble/include/runspec/drogon.dimens' / -- exported by rms
 
 -- Table dimensions
 INCLUDE
-  '../../include/runspec/drogon.tabdims' / -- exported by rms
+  '../../drogon_ensemble/include/runspec/drogon.tabdims' / -- exported by rms
 
 -- Dimension of equilibration tables
 INCLUDE
-  '../../include/runspec/drogon.eqldims' / -- exported by rms
+  '../../drogon_ensemble/include/runspec/drogon.eqldims' / -- exported by rms
 
 -- Regions dimension data
 INCLUDE
-  '../../include/runspec/drogon.regdims' / -- exported by rms
+  '../../drogon_ensemble/include/runspec/drogon.regdims' / -- exported by rms
 
 -- x-,y-,z- and multnum regions
 INCLUDE
-  '../../include/runspec/drogon.gridopts' / -- exported by rms
+  '../../drogon_ensemble/include/runspec/drogon.gridopts' / -- exported by rms
 
 -- Dimensions for fault data
 FAULTDIM
@@ -139,35 +139,35 @@ MINPV
  /
 
 INCLUDE
- '../../include/grid/drogon.grid' / --exported by rms
+ '../../drogon_ensemble/include/grid/drogon.grid' / --exported by rms
 
 INCLUDE
- '../../include/grid/drogon.faults' / --exported by rms
+ '../../drogon_ensemble/include/grid/drogon.faults' / --exported by rms
 
 INCLUDE
- ${"\'../../Drogon_{}/drogon.poro\' /".format(sample_index)} 
+ ${"\'../../drogon_ensemble/Drogon_{}/drogon.poro\' /".format(sample_index)} 
  
 INCLUDE
- ${"\'../../Drogon_{}/drogon.permx\' /".format(sample_index)} 
+ ${"\'../../drogon_ensemble/Drogon_{}/drogon.permx\' /".format(sample_index)} 
  
  INCLUDE
- ${"\'../../Drogon_{}/drogon.permy\' /".format(sample_index)} 
+ ${"\'../../drogon_ensemble/Drogon_{}/drogon.permy\' /".format(sample_index)} 
  
  INCLUDE
- ${"\'../../Drogon_{}/drogon.permz\' /".format(sample_index)} 
+ ${"\'../../drogon_ensemble/Drogon_{}/drogon.permz\' /".format(sample_index)} 
  
 INCLUDE
- '../../include/grid/drogon.multnum' / --exported by rms
+ '../../drogon_ensemble/include/grid/drogon.multnum' / --exported by rms
 
 INCLUDE
- '../../include/grid/drogon.multregt' / --from ert template
+ '../../drogon_ensemble/include/grid/drogon.multregt' / --from ert template
 
 -- =============================================================================
 EDIT
 -- =============================================================================
 
 INCLUDE
- '../../include/edit/drogon.trans' / --exported by rms
+ '../../drogon_ensemble/include/edit/drogon.trans' / --exported by rms
 
 
 -- =============================================================================
@@ -177,13 +177,13 @@ PROPS
 FILLEPS
 
 INCLUDE                                
- '../../include/props/drogon.sattab' / --exported by rms
+ '../../drogon_ensemble/include/props/drogon.sattab' / --exported by rms
 
 --INCLUDE
--- '../../include/props/drogon.swatinit' / --exported by rms
+-- '../../drogon_ensemble/include/props/drogon.swatinit' / --exported by rms
 
 INCLUDE
- '../../include/props/drogon.pvt' /
+ '../../drogon_ensemble/include/props/drogon.pvt' /
 
 --!!-- Set up tracers
 --!!TRACER
@@ -199,19 +199,19 @@ REGIONS
 -- =============================================================================
 
 INCLUDE
- '../../include/regions/drogon.eqlnum' / --exported by rms
+ '../../drogon_ensemble/include/regions/drogon.eqlnum' / --exported by rms
 
 INCLUDE
- '../../include/regions/drogon.fipnum' / --exported by rms
+ '../../drogon_ensemble/include/regions/drogon.fipnum' / --exported by rms
 
 INCLUDE
- '../../include/regions/drogon.fipzon' / --exported by rms
+ '../../drogon_ensemble/include/regions/drogon.fipzon' / --exported by rms
 
 --INCLUDE
--- '../../include/regions/drogon.satnum' / --exported by rms
+-- '../../drogon_ensemble/include/regions/drogon.satnum' / --exported by rms
 
 INCLUDE
- '../../include/regions/drogon.pvtnum' / --exported by rms
+ '../../drogon_ensemble/include/regions/drogon.pvtnum' / --exported by rms
 
 
 -- =============================================================================
@@ -219,7 +219,7 @@ SOLUTION
 -- =============================================================================
 
 RESTART
- ${"\'../../Drogon_{}/DROGON\'  82 /".format(sample_index)} 
+ ${"\'../../drogon_ensemble/Drogon_{}/DROGON\'  82 /".format(sample_index)} 
   
 --INCLUDE                                
 -- '../include/solution/drogon.equil' / --exported by rms   
@@ -280,7 +280,7 @@ SUMTHIN
  1 /
 
 INCLUDE
- '../../include/summary/drogon.summary' /
+ '../../drogon_ensemble/include/summary/drogon.summary' /
 
 
 -- =============================================================================
