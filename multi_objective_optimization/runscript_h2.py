@@ -101,4 +101,4 @@ if __name__ == '__main__':
 
     # Set random seed and run
     np.random.seed(29_11_1997)
-    optimize_pareto_point([0.0], save_folder=f'results/hydrogen')
+    optimize_pareto_point(0.0, save_folder=f'results/hydrogen')
