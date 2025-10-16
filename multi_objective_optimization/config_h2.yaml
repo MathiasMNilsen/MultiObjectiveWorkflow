@@ -44,10 +44,17 @@ optim:
   maxiter: 20
   method: Newton-CG
   step_size_adapt: 2
-
+  ftol: 0.00001
+  epf:
+    r: 10.0
+    max_epf_iter: 10
+    r_factor: 10
+    tol_factor: 0.5
+    conv_crit: 0.04
+  savedata: ["alpha", "obj_func_values", "epf"]
 
 fwdsim:
-  parallel: 10
+  parallel: 50
   sim_limit: 24000
   runfile: DROGON
   windpower: init/wp_ens.npy
@@ -55,7 +62,7 @@ fwdsim:
   datatype: [fopt, fgpt, fwpt, fwit, wthp a5, wthp a6]
 
   simoptions:
-    mpi: mpirun -np 5
+    #mpi: mpirun -np 5
     sim_flag: --parsing-strictness=low
 
   reportpoint: 
@@ -70,6 +77,10 @@ fwdsim:
     wwi: 25     # USD/Sm3
     wem: 150    # USD/ton
     disc: 0.08  # 8% per year
+    n_gt: 0     # number of gas turbines
+    n_wt: 6     # number of wind turbines
+    h2cap: 142  # H2 capacity in tonnes - assume 12 modules
+                # 12 tonnes per module but retain 2 tonnes for backup
 
 
 
