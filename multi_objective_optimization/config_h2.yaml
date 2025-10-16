@@ -52,6 +52,7 @@ optim:
     tol_factor: 0.5
     conv_crit: 0.04
   savedata: ["alpha", "obj_func_values", "epf"]
+  save_folder: "results/hydrogen"
 
 fwdsim:
   parallel: 50
