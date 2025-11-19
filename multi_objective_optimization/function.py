@@ -1,12 +1,16 @@
 import numpy as np
 
-def objectives(pred_data, input_dict, true_order):
+from popt.cost_functions.epf import epf
+
+def objectives(pred_data, input_dict, true_order, **kwargs):
     
     # Unpack some stuff
     kw_opt = input_dict
     report = true_order[1]
     wind_power_ens = np.load(kw_opt['windpower'])
-    economic_conts = dict(kw_opt['npv_const'])
+    economic_const = dict(kw_opt['npv_const'])
+    n_wt = economic_const.get('n_wt',1)  # number of wind turbines
+    wind_power_ens *= n_wt # scale the wind power ensemble with n_wt
 
     # Define some variables
     ne = pred_data[0]['fopt'].shape[1]
@@ -14,9 +18,27 @@ def objectives(pred_data, input_dict, true_order):
     npv = 0.0
     co2 = [[] for _ in range(ne)]
 
+    # Handle H2 storage if applicable
+    epf_dict = kwargs.get('epf', None)
+    if epf_dict:
+        r = epf_dict.get('r', -1)  # epf penalty factor
+        epf_dict['penalty'] = []  # initialize penalty list
+    h2_storage = {}
+    if economic_const.get('h2cap', 0) > 0:
+        h2_storage['h2cap'] = economic_const['h2cap'] * 1.0e3  # max storage capacity in kg
+        h2_storage['level'] = [h2_storage['h2cap']] * ne  # initial storage capacity in kg
+        h2_storage['penalty'] = [0.0] * ne  # initial penalty
+        h2_storage['electrolysis'] = 50 / 1000  # Producing hydrogen via electrolysis typically requires about 50 kWh of
+                                                # electricity per kilogram of hydrogen, assuming modern, efficient
+                                                # electrolyzers (~70% efficiency).
+        h2_storage['fuel_cell'] = 33.33 / 1000  # Using hydrogen in a fuel cell typically yields about 0.3333 MWh/kg
+                                                # of H2 (Lower Heating Value (LHV): ~33.33 kWh/kg)
+        h2_storage['eff'] = 0.5                 # assume 50% efficiency (TechnipFMC)
+
     # Define a data getter
     get_data = lambda i, key: pred_data[i+1][key].squeeze() - pred_data[i][key].squeeze()
-   
+
+    penalty_term = []
     for i in range(len(pred_data)-1):
 
         # Get volumes in interval
@@ -49,16 +71,25 @@ def objectives(pred_data, input_dict, true_order):
         thp_max = np.row_stack([thp_max]*idays).T
 
         # Calculate emissions
-        co2_rate = []
-        fuel_rate = []
-        for n in range(ne):
-            c, f = calc_emissions(oil_rate[n], gas_rate[n], wp_rate[n], wi_rate[n], thp_max[n], wind_power[n])
-            co2_rate.append(c)
-            fuel_rate.append(f)
-        
-        co2_rate = np.array(co2_rate)
-        fuel_rate = np.array(fuel_rate)
-        co2_vol = np.sum(co2_rate, axis=1)
+        fuel_rate = 0.0
+        if economic_const.get('n_gt',0) > 0:
+            co2_rate = []
+            fuel_rate = []
+            for n in range(ne):
+                c, f = calc_emissions(oil_rate[n], gas_rate[n], wp_rate[n], wi_rate[n],
+                                      thp_max[n], wind_power[n], n_gt=int(economic_const['n_gt']))
+                co2_rate.append(c)
+                fuel_rate.append(f)
+
+            co2_rate = np.array(co2_rate)
+            fuel_rate = np.array(fuel_rate)
+            co2_vol = np.sum(co2_rate, axis=1)
+        else:
+            co2_rate = np.zeros((ne, idays))
+            co2_vol = np.zeros(ne)
+
+        if h2_storage:
+            update_h2(oil_rate, gas_rate, wp_rate, wi_rate, thp_max, wind_power, h2_storage)
 
         # Subtract fuel rate from gas production
         ton_to_sm3 = 1386
@@ -69,15 +100,26 @@ def objectives(pred_data, input_dict, true_order):
         ndays += idays
 
         # calc NPV
-        revenue = economic_conts['wop']*oil_vol + economic_conts['wgp']*gas_vol_exp
-        expenditure = economic_conts['wwp']*wp_vol + economic_conts['wwi']*wi_vol + economic_conts['wem']*co2_vol
-        dnpv = (revenue - expenditure)/(1 + economic_conts['disc'])**(ndays/365)
+        revenue = economic_const['wop']*oil_vol + economic_const['wgp']*gas_vol_exp
+        expenditure = economic_const['wwp']*wp_vol + economic_const['wwi']*wi_vol + economic_const['wem']*co2_vol
+        dnpv = (revenue - expenditure)/(1 + economic_const['disc'])**(ndays/365)
         npv += dnpv
 
         # Append emissions
         for n in range(ne):
             co2[n].extend(co2_rate[n].tolist())
 
+        # check for contraints
+        if epf_dict and r >= 0:
+            c_iq = np.array(h2_storage['penalty'])
+            penalty = epf(r, c_iq=c_iq[np.newaxis,:])
+            npv -= penalty
+            epf_dict['penalty'].append(penalty)
+            penalty_term.append(penalty)
+
+    if penalty_term:
+        print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(penalty_term))}') # Print epf info
+                
     co2 = np.array(co2)    
 
     return npv, co2
@@ -88,7 +130,7 @@ from facility.pump import power_demand_pump
 from facility.water_treatment import power_demand_water_treatment
 from facility.gas_turbine_system import turbine_system_consumption
 
-def calc_emissions(oil_rate, gas_rate, wp_rate, wi_rate, thp_max, wind_power):
+def calc_emissions(oil_rate, gas_rate, wp_rate, wi_rate, thp_max, wind_power, **kwargs):
 
     pump_head = (thp_max-1)*10.199773339984054
 
@@ -105,8 +147,44 @@ def calc_emissions(oil_rate, gas_rate, wp_rate, wi_rate, thp_max, wind_power):
     power_load_gas_turbines = np.maximum(total_power_demand - wind_power, 0)
 
     # calculate emissions and fuel rate [ton/day]
-    emission_rate, fuel_rate = turbine_system_consumption(power_load_gas_turbines)
+    emission_rate, fuel_rate = turbine_system_consumption(power_load_gas_turbines, **kwargs)
 
     return emission_rate, fuel_rate
+
+def update_h2(oil_rate, gas_rate, wp_rate, wi_rate, thp_max, wind_power, h2_storage):
+
+    ne = oil_rate.shape[0]
+    for n in range(ne):
+           
+        pump_head = (thp_max[n]-1)*10.199773339984054
+    
+        # Calculate power demand of components [MW]
+        power_gas_comp  = power_demand_gas_compressor(gas_rate[n], P_max=22)
+        power_wat_pump  = power_demand_pump(wi_rate[n], pump_head)
+        power_wat_treat = power_demand_water_treatment(wp_rate[n])
+        power_base_load = 4
+    
+        # Calculate total power demand [MW]
+        total_power_demand = power_gas_comp + power_wat_pump + power_wat_treat + power_base_load
+    
+        # Update global H2 storage level
+        h2_storage['penalty'][n] = 0.0  # reset penalty
+        for t in range(len(total_power_demand)):
+            if total_power_demand[t] < wind_power[n][t]:
+                excess_power = wind_power[n][t] - total_power_demand[t]
+                excess_power *= 24  # Convert MW to MWh per day
+                h2_diff = excess_power / h2_storage['electrolysis'] # convert to kilograms of H2
+                h2_storage['level'][n] = min(h2_storage['level'][n] + h2_diff, h2_storage['h2cap'])  # max storage h2cap
+            else:
+                power_deficit = total_power_demand[t] - wind_power[n][t]
+                power_deficit *= 24  # Convert MW to MWh per day
+                h2_diff = power_deficit / h2_storage['fuel_cell']  # convert to kilograms of H2
+                h2_diff /= h2_storage['eff'] # fuel cell efficiency 
+                h2_storage['penalty'][n] += min(h2_storage['level'][n] - h2_diff, 0)  # penalty due to lack of H2
+                h2_storage['level'][n] = max(h2_storage['level'][n] - h2_diff, 0)  # min storage 0 kg
+                
+               
+                
+
 
 
