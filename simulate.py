@@ -12,6 +12,6 @@ def run_command_in_folder(folder):
     finally:
         os.chdir(cwd)
 
-folders = [f"Drogon_{i}" for i in range(50)]
+folders = [f"drogon_ensemble/Drogon_{i}" for i in range(50)]
 
 p_map(run_command_in_folder, folders, num_cpus=5)
