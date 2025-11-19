@@ -1,0 +1,54 @@
+workflow:
+  startdate: '2020-07-03'
+  enddate: '2025-01-01'
+  interval_length: 7 # days
+  restart_index: 82
+  target_file: 'target_controls.csv'
+
+economic:
+  oil_price: 472.0      # $/Sm3
+  gas_price: 0.4        # $/Sm3
+  water_injection: 25   # $/Sm3
+  water_production: 37  # $/Sm3
+  co2_tax: 150          # $/ton
+
+simulation: 
+  filename: 'DROGON'
+  parallel: 5
+  wells:
+    producers: [A1, A2, A3, A4, OP5]
+    injectors: [A5, A6]
+
+  controls:
+    RateA1:
+      min: 0
+      max: 3000 # Sm3/day
+    RateA2:
+      min: 0
+      max: 4000 # Sm3/day
+    RateA3:
+      min: 0
+      max: 4000 # Sm3/day
+    RateA4:
+      min: 0
+      max: 4000 # Sm3/day
+    RateOP5:
+      min: 0
+      max: 3000 # Sm3/day
+    RateA5:
+      min: 0
+      max: 8000 # Sm3/day
+    RateA6:
+      min: 0
+      max: 8000 # Sm3/day
+
+  datatypes:
+    WOPR: [A1, A2, A3, A4, OP5]
+    WWPR: [A1, A2, A3, A4, OP5]
+    WGPR: [A1, A2, A3, A4, OP5]
+    WWIR: [A5, A6]
+    WTHP: [A5, A6]
+
+  
+ 
+
