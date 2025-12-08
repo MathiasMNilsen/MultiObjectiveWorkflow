@@ -19,7 +19,6 @@ def turbine_system_consumption(powerload, **kwargs):
     if powerload == 0:
         return 0, 0
 
-
     # kwargs
     P_max = kwargs.get('P_max', 15)     # [MW] power output of one gas turbine at full load MW
     eff_max = kwargs.get('eff_max', 0.4)  # full load efficiency
