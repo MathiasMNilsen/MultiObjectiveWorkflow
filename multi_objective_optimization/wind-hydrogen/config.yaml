@@ -1,7 +1,7 @@
 ensemble: 
-  ne: 8 # TODO: 50
+  ne: 50
   transform: true
-  num_models: 8 # TODO: 50
+  num_models: 50
   state: [RATE_A1, RATE_A2, RATE_A3, RATE_A4, RATE_OP5, RATE_A5, RATE_A6, N_WT, N_H2]
 
   prior_RATE_A1:
@@ -50,18 +50,18 @@ ensemble:
     limits: [ 0, 400 ]
 
 optim:
-  maxiter: 1 # TODO: 10
-  main_method: 'EnOpt' # TODO: 'LineSearch'  # LineSearch, EnOpt, SMCopt, TrustRegion
+  maxiter: 10
+  main_method: 'LineSearch'  # LineSearch, EnOpt, SMCopt, TrustRegion
   method: 'GD'
   step_size_adapt: 0
-  lsmethod: 1 # TODO: 0
-  lsmaxiter: 2 # TODO: 5
+  lsmethod: 0
+  lsmaxiter: 5
   step_size: 0.2
   ftol: 0.001
-  resample: 1 # TODO: 5
+  resample: 5
   epf:
     r: 1
-    max_epf_iter: 1 # TODO: 5
+    max_epf_iter: 5
     r_factor: 2
     tol_factor: 0.5
     conv_crit: 0.05
@@ -70,7 +70,7 @@ optim:
   obj_scaling: [984000000.0, 2845473526.0]  # scaling for [CAPEX, NPV]
 
 fwdsim:
-  parallel: 8 # TODO: 35
+  parallel: 35
   sim_limit: 24000
   runfile: DROGON
   windpower: '../init/wp_ens.npy'
