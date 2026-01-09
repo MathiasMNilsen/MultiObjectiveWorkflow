@@ -2,10 +2,10 @@ import numpy as np
 
 from popt.cost_functions.epf import epf
 
-from ..facility.gas_compressor import power_demand_gas_compressor
-from ..facility.pump import power_demand_pump
-from ..facility.water_treatment import power_demand_water_treatment
-from ..facility.gas_turbine_system import turbine_system_consumption
+from multi_objective_optimization.facility.gas_compressor import power_demand_gas_compressor
+from multi_objective_optimization.facility.pump import power_demand_pump
+from multi_objective_optimization.facility.water_treatment import power_demand_water_treatment
+from multi_objective_optimization.facility.gas_turbine_system import turbine_system_consumption
 
 def objectives(pred_data, input_dict, true_order, **kwargs):
 
@@ -43,7 +43,7 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     h2_storage = {}
     if 'h2' in economic_const:  # assume hydrogen storage is optimized
         h2_storage['h2cap'] = np.ones(ne)*np.squeeze(state['N_H2']) * 1.0e3  # max storage capacity in kg
-        h2_storage['level'] = h2_storage['h2cap']  # initial storage capacity in kg
+        h2_storage['level'] = np.ones(ne)*np.squeeze(state['N_H2']) * 1.0e3  # initial capacity in kg (assume full)
         h2_storage['penalty'] = np.zeros(ne)  # initial penalty
         h2_storage['electrolysis'] = 50 / 1000  # Producing hydrogen via electrolysis typically requires about 50 kWh of
                                                 # electricity per kilogram of hydrogen, assuming modern, efficient

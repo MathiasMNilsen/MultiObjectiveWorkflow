@@ -8,7 +8,7 @@ from input_output import read_config
 from subsurface.multphaseflow.opm import flow
 
 # Import objective function
-from .function import objectives
+from multi_objective_optimization.tools.function import objectives
 
 # Function to optimize a single Pareto point
 def optimize_pareto_point(weight, **kwargs):
