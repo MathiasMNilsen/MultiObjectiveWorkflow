@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-ne = 8 # TODO: 50
+ne = 50
 
 
 def plot_pareto():
