@@ -8,7 +8,7 @@ np.random.seed(26112025)
 
 copyfile('../init/DROGON.mako' ,'./DROGON.mako')
 
-for w in [0.5]: # [0.1, 0.5, 0.9]:
+for w in [0.1, 0.5, 0.9]:
 
     # Define save folder
     s = f"../results/wind-hydrogen_weight_{w}"
