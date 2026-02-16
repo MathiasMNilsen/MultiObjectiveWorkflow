@@ -6,7 +6,7 @@ from multi_objective_optimization.tools.pareto import optimize_pareto_point
 
 copyfile('../init/DROGON.mako' ,'./DROGON.mako')
 
-for w in [1.0]: # TODO: [0.0, 0.25, 0.5, 0.75, 1.0]:
+for w in [0.0, 0.25, 0.5, 0.75, 1.0]:
 
     # Define save folder
     s = f"../results/wind-gas_weight_{w}"

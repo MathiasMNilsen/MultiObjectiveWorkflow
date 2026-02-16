@@ -8,7 +8,7 @@ from input_output import read_config
 from subsurface.multphaseflow.opm import flow
 
 # Import objective function
-from .function import objectives
+from multi_objective_optimization.tools.function import objectives
 
 # Function to optimize a single Pareto point
 def optimize_pareto_point(weight, **kwargs):
@@ -35,13 +35,27 @@ def optimize_pareto_point(weight, **kwargs):
                 capex=capex,
             )
 
-        # Weighted sum
-        obj_scaling = input_dict.get('obj_scaling', [1,1])
+        # Get objective scaling from kwargs (if applicable)
+        obj_scaling = kwopt.get('obj_scaling', [1,1,1])
+        if isinstance(obj_scaling, (float, int)):
+            obj_scaling = [obj_scaling] * 3
+
+        # Get f1 (either CO2 or CAPEX) and f2 (NPV)
         f1 = co2.sum(axis=1)
         if np.all(f1) < 1.0e-6 < np.any(capex):
             f1 = capex
         f2 = npv
+
+        # Calculate  weighted sum
         wsum = weight * f1 / obj_scaling[0] + (1 - weight) * (-f2 / obj_scaling[1])
+
+        # Get the penalty from kwargs (if applicable) and add to weighted sum
+        epf_dict = kwargs.get('epf', {})
+        if epf_dict:
+            epf_dict['penalty'] = np.sum(epf_dict['penalty'], axis=0)
+            epf_dict['penalty'] /= obj_scaling[2]
+            wsum += epf_dict['penalty']
+
         return wsum
 
     # Read config file

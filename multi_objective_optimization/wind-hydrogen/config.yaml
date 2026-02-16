@@ -50,7 +50,7 @@ ensemble:
     limits: [ 0, 400 ]
 
 optim:
-  maxiter: 10
+  maxiter: 20
   main_method: 'LineSearch'  # LineSearch, EnOpt, SMCopt, TrustRegion
   method: 'GD'
   step_size_adapt: 0
@@ -60,14 +60,14 @@ optim:
   ftol: 0.001
   resample: 5
   epf:
-    r: 1
+    r: 0.1
     max_epf_iter: 5
     r_factor: 2
     tol_factor: 0.5
     conv_crit: 0.05
   savedata: ["epf"]
   save_folder: ""
-  obj_scaling: [984000000.0, 2845473526.0]  # scaling for [CAPEX, NPV]
+  obj_scaling: 2845473526.0  # scaling for [CAPEX, NPV, PENALTY]
 
 fwdsim:
   parallel: 35

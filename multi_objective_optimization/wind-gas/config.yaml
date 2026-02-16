@@ -1,7 +1,7 @@
 ensemble: 
-  ne: 8 # TODO: 50
+  ne: 50
   transform: true
-  num_models: 8 # TODO: 50
+  num_models: 50
   state: [RATE_A1, RATE_A2, RATE_A3, RATE_A4, RATE_OP5, RATE_A5, RATE_A6]
 
   prior_RATE_A1:
@@ -41,14 +41,14 @@ ensemble:
 
 
 optim:
-  maxiter: 2 # TODO: 20
+  maxiter: 20
   method: 'Newton-CG'
   step_size_adapt: 2
   obj_scaling: [187583, 2845473526]  # scaling for [NPV, Emissions]
   save_folder: ""
 
 fwdsim:
-  parallel: 8 # TODO: 10
+  parallel: 10
   sim_limit: 24000
   runfile: DROGON
   windpower: '../init/wp_ens.npy'
@@ -56,7 +56,7 @@ fwdsim:
   datatype: [fopt, fgpt, fwpt, fwit, wthp a5, wthp a6]
 
   simoptions:
-    #TODO: mpi: mpirun -np 5
+    mpi: mpirun -np 5
     sim_flag: --parsing-strictness=low
 
   reportpoint: 
