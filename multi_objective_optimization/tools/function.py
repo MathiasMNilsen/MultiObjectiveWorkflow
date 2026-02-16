@@ -55,7 +55,6 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     # Define a data getter
     get_data = lambda i, key: pred_data[i+1][key].squeeze() - pred_data[i][key].squeeze()
 
-    penalty_term = []
     for i in range(len(pred_data)-1):
 
         # Get volumes in interval
@@ -135,12 +134,10 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         if epf_dict and r >= 0:
             c_iq = h2_storage['penalty']
             penalty = epf(r, c_iq=c_iq[np.newaxis,:])
-            npv -= penalty
             epf_dict['penalty'].append(penalty)
-            penalty_term.append(penalty)
 
-    if penalty_term:
-        print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(penalty_term))}') # Print epf info
+    if epf_dict:
+        print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict['penalty']))}') # Print epf info
                 
     co2 = np.array(co2)    
 
