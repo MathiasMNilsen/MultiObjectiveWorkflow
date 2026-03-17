@@ -7,6 +7,9 @@ import sys
 import os
 import yaml
 
+from multiprocessing import Pool
+from tqdm import tqdm
+
 # Internal imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import sim_tools
@@ -19,10 +22,11 @@ with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
 # Workflow parameters
-startdate = config['workflow']['startdate']
-enddate   = config['workflow']['enddate']
-ddays     = config['workflow']['interval_length']
-rst_index = config['workflow']['restart_index']
+startdate   = config['workflow']['startdate']
+enddate     = config['workflow']['enddate']
+ddays       = config['workflow']['interval_length']
+rst_index   = config['workflow']['restart_index']
+save_folder = config['workflow']['save_folder']
 
 # Load Target
 target_file = config['workflow']['target_file']
@@ -68,6 +72,7 @@ if __name__ == '__main__':
 
     # Number of intervals
     nint = 1 + (pd.to_datetime(enddate) - pd.to_datetime(startdate)).days // ddays
+    #nint = 18 
     print(f'Number of intervals: {nint}')
 
     # Load wind power file
@@ -85,7 +90,7 @@ if __name__ == '__main__':
         
         NB: _df indicates pandas DataFrame format, else numpy array format.
         '''
-        print(f'\n=== Interval {i+1} / {nint} ===')
+        print(f'\n============= Interval {i+1} / {nint} =============')
 
 
         # Reporting dates
@@ -129,10 +134,17 @@ if __name__ == '__main__':
         Fi_df = sim_tools.facility_consumption(Yi_df, windpower=WPi)
         Vi_dict = sim_tools.production_volume_and_emissions(Yi_df, windpower=WPi)
 
+        # Calculate NPV for target strategy
+        npv_target = sim_tools.net_present_value(
+            volumes=Vi_dict,
+            econ=econ,
+        )
+        Vi_dict['npv'] = npv_target
+
 
         # Sample 100 random control strategies around target to train proxy
         size = 100
-        cov = 0.25**2 * np.diag((ub - lb)**2)
+        cov  = 0.1**2 * np.diag((ub - lb)**2)
         X = np.random.multivariate_normal(mean=Xi, cov=cov, size=size)
         X = np.clip(X, a_min=lb, a_max=ub)
 
@@ -159,7 +171,6 @@ if __name__ == '__main__':
         # Make proxy model
         proxy_model = opt_tools.LinearProxyModel(X, Y)
 
-
         # Run target strategy on proxy model
         proxy_Yi = proxy_model.predict(Xi)
         proxy_Yi_df = sim_tools.vec_to_dataframe(
@@ -169,49 +180,117 @@ if __name__ == '__main__':
         )
         proxy_Fi_df = sim_tools.facility_consumption(proxy_Yi_df, windpower=WPi)
         proxy_Vi_dict = sim_tools.production_volume_and_emissions(proxy_Yi_df, windpower=WPi)
-
+        proxy_npv_target = sim_tools.net_present_value(
+            volumes=proxy_Vi_dict,
+            econ=econ,
+        )
+        proxy_Vi_dict['npv'] = proxy_npv_target
 
         # Define objective function
         objective = opt_tools.ObjectiveFunction(
             model=proxy_model, 
             target=proxy_Vi_dict, 
             windpower=WPi,
-            weight=0.5,
+            weight=0.25,
+            econ=econ
+        )
+
+        objective = opt_tools.Objective(
+            model=proxy_model, 
+            target=proxy_Vi_dict, 
+            windpower=WPi,
+            tol=0.01,
         )
 
 
         # Minimize objective function
-        if False:
+        if True:
             cov = 0.1**2 * np.diag((ub - lb)**2)
-            U = np.random.multivariate_normal(mean=Xi, cov=cov, size=10000)
+            U = np.random.multivariate_normal(mean=Xi, cov=cov, size=50000)
             U = np.clip(U, a_min=lb, a_max=ub)
 
-            F = []
-            for u in U:
-                fval = objective(u, dates, datatypes)
-                F.append(fval)
-            F  = np.array(F)
-            Ui = U[np.argmin(F)].squeeze()
-        else:
-            Ui = Xi/ub
-            Ui = np.random.multivariate_normal(mean=Ui, cov=0.05**2 * np.eye(len(Ui)))
-            func = lambda u, *args: objective(u*ub, *args)
+            # Define evaluation function for parallel processing
+            def evaluate_objective(u):
+                return objective(u, dates, datatypes)
 
-            from scipy.optimize import minimize
-            res = minimize(
+            # Evaluate objective function for all samples in parallel
+            with Pool(processes=parallel) as pool:
+                F = list(tqdm(
+                    pool.imap(evaluate_objective, U), 
+                    total=len(U), 
+                    desc="Evaluating", 
+                    ncols=100
+                ))
+            
+            # Find best strategy
+            F = np.array(F)
+            Fbest = np.min(F)
+            Fxi = objective(Xi, dates, datatypes)
+            print(f'Best objective function value from samples: {Fbest}')
+            print(f'Target objective function value: {Fxi}')
+            Ui = U[np.argmin(F)].squeeze()
+
+        elif False:
+
+            # Transform to [0, 1] space
+            u0 = (Xi - lb) / (ub - lb)
+            bounds = [(0, 1)]*u0.size
+
+            # Wrapped objective function
+            def func(u, *args):
+                return objective(np.clip(u, 0, 1)*ub, *args)
+            
+            # EnOpt gradient
+            enopt = opt_tools.EnOpt(
                 fun=func,
-                x0=Ui,
+                cov=0.001**2 * np.eye(u0.size),
+                ne=1000,
+                bounds=bounds,
+            )
+
+            # Sample initial point
+            #U = np.random.multivariate_normal(mean=u0, cov=enopt.cov, size=1000)
+            #U = np.clip(U, a_min=0, a_max=1)
+            #F = np.array([func(u, dates, datatypes) for u in U])
+            #u0 = U[np.argmin(F)].squeeze()
+            
+            # Optimize with LineSearch
+            from popt.update_schemes.linesearch import LineSearch
+            res = LineSearch(
+                fun=func,
+                jac=enopt.gradient,
+                hess=enopt.hessian,
+                x=u0,
+                method='GD',
                 args=(dates, datatypes),
-                method='L-BFGS-B',
-                jac='3-point',
-                bounds=[(0, 1) for _ in range(len(Ui))],
-                options={
-                    'disp': True,
-                    'maxiter': 100,
-                }
+                bounds=bounds,
+                **{'maxiter': 100,
+                   'saveit': False,
+                   'lsmethod': 0,}
             )
             print(res)
-            Ui = res.x * ub
+
+            # Transform back to original space
+            Ui = res.x*(ub - lb) + lb
+
+        else: 
+            pass
+            
+
+
+        # Evaluate strategy Ui on proxy model
+        proxy_Yi_opt = proxy_model.predict(Ui)
+        proxy_Yi_opt_df = sim_tools.vec_to_dataframe(
+            vec=proxy_Yi_opt.squeeze(), 
+            datatypes=datatypes,
+            index=dates
+        )
+        proxy_Fi_opt_df   = sim_tools.facility_consumption(proxy_Yi_opt_df, windpower=WPi)
+        proxy_Vi_opt_dict = sim_tools.production_volume_and_emissions(proxy_Yi_opt_df, windpower=WPi)
+        proxy_npv_optimal = sim_tools.net_present_value(
+            volumes=proxy_Vi_opt_dict,
+            econ=econ,
+        )
 
 
         # Evaluate optimal strategy on full simulator
@@ -237,7 +316,7 @@ if __name__ == '__main__':
         objective.func(Yi_df_opt, eval=True)
 
         # Save results
-        result_folder = f'results/Interval{i+1}'
+        result_folder = os.path.join(save_folder, f'Interval{i+1}')
         if not os.path.exists(result_folder):
             os.makedirs(result_folder)
 
@@ -249,6 +328,10 @@ if __name__ == '__main__':
         if not os.path.exists(optimal_folder):
             os.makedirs(optimal_folder)
 
+        proxy_folder = os.path.join(result_folder, 'proxy')
+        if not os.path.exists(proxy_folder):
+            os.makedirs(proxy_folder)
+
         # Save controls
         Xi_df.to_csv(os.path.join(target_folder, 'controls.csv'))
         Xi_df_opt.to_csv(os.path.join(optimal_folder, 'controls.csv'))
@@ -256,22 +339,21 @@ if __name__ == '__main__':
         # Save simulation results
         Yi_df.to_csv(os.path.join(target_folder, 'simulation.csv'))
         Yi_df_opt.to_csv(os.path.join(optimal_folder, 'simulation.csv'))
+        proxy_Yi_opt_df.to_csv(os.path.join(proxy_folder, 'simulation.csv'))
 
         # Save facility consumption
         Fi_df.to_csv(os.path.join(target_folder, 'consumption.csv'))
         Fi_df_opt.to_csv(os.path.join(optimal_folder, 'consumption.csv'))
+        proxy_Fi_opt_df.to_csv(os.path.join(proxy_folder, 'consumption.csv'))
 
         # Calculate and save NPV in npz files
-        npv_target = sim_tools.net_present_value(
-            volumes=Vi_dict,
-            econ=econ,
-        )
         npv_optimal = sim_tools.net_present_value(
             volumes=Vi_dict_opt,
             econ=econ,
         )
         np.savez(os.path.join(target_folder, 'npv.npz'), npv=npv_target)
         np.savez(os.path.join(optimal_folder, 'npv.npz'), npv=npv_optimal)
+        np.savez(os.path.join(proxy_folder, 'npv.npz'), npv=proxy_npv_optimal)
 
 
 

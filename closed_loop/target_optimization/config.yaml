@@ -1,0 +1,74 @@
+ensemble:
+  ne: 50
+  transform: true
+  natural_gradient: false
+
+  # Define controls for optimization
+  controls:
+    RATE_A1:
+      initial: init_rates.npz
+      limits: [0, 3000]
+      std: 5%
+    
+    RATE_A2:
+      initial: init_rates.npz
+      limits: [0, 4000]
+      std: 5%
+
+    RATE_A3:
+      initial: init_rates.npz
+      limits: [0, 4000]
+      std: 5%
+    
+    RATE_A4:
+      initial: init_rates.npz
+      limits: [0, 4000]
+      std: 5%
+    
+    RATE_OP5:
+      initial: init_rates.npz
+      limits: [0, 3000]
+      std: 5%
+    
+    RATE_A5:
+      initial: init_rates.npz
+      limits: [0, 8000]
+      std: 5%
+    
+    RATE_A6:
+      initial: init_rates.npz
+      limits: [0, 8000]
+      std: 5%
+
+optim:
+  method: Newton-CG
+  maxiter: 25
+  save_folder: results_NewtonCG
+  step_size_adapt: 2
+  lsmethod: 0 # backtracking line search
+
+fwdsim:
+  runfile: DROGON
+  datatype: [fopt, fgpt, fwpt, fwit, wthp a5, wthp a6]
+  reporttype: dates
+  parallel: 10
+
+  # OPM Flow options
+  simoptions:
+    mpi: mpirun -np 5
+    sim_flag: --parsing-strictness=low
+
+  # Report steps for simulation output
+  reportpoint: 
+    start: '2020-07-01' 
+    end: '2025-01-01' 
+    freq: MS
+  
+  # Economic parameters for NPV calculation
+  npv_const:
+    wop: 472    # approx 75 USD/bbl
+    wgp: 0.4    # USD/Sm3
+    wwp: 37     # USD/Sm3
+    wwi: 25     # USD/Sm3
+    disc: 0.08  # 8% per year
+

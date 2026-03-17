@@ -16,7 +16,7 @@ def gas_trubine_efficiency(r):
 
 def turbine_system_consumption(powerload, **kwargs):
 
-    if powerload == 0:
+    if powerload <= 0:
         return 0, 0
 
 
