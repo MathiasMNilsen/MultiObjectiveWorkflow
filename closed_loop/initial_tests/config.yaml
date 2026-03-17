@@ -1,9 +1,14 @@
 workflow:
   startdate: '2020-07-03'
   enddate: '2025-01-01'
-  interval_length: 7 # days
+  interval_length: 10 # days
   restart_index: 82
-  target_file: 'target_controls.csv'
+  tolerance: 0.0025  # relative tolerance
+  save_folder: 'results_tol_0.25%_n250'
+
+proxy:
+  training_size: 250
+  training_std: 0.25
 
 economic:
   oil_price: 472.0      # $/Sm3
@@ -14,7 +19,7 @@ economic:
 
 simulation: 
   filename: 'DROGON'
-  parallel: 5
+  parallel: 50
   wells:
     producers: [A1, A2, A3, A4, OP5]
     injectors: [A5, A6]
