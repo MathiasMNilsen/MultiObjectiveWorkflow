@@ -75,7 +75,7 @@ fwdsim:
   runfile: DROGON
   windpower: '../init/wp_ens.npy'
   reporttype: dates
-  datatype: [fopt, fgpt, fwpt, fwit, wthp a5, wthp a6]
+  datatype: [fopt, fgpt, fwpt, fwit, wthp:a5, wthp:a6]
 
   simoptions:
     #mpi: mpirun -np 5

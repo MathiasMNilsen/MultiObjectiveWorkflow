@@ -68,6 +68,9 @@ def _load_state_limits(path_to_config, state_names):
 
     limits = []
     ens = cfg.get('ensemble', {})
+    transform = ens.get('transform', True)
+    if not transform:
+        return limits, transform
     for name in state_names:
         if name is None:
             limits.append((0.0, 1.0))
@@ -83,7 +86,7 @@ def _load_state_limits(path_to_config, state_names):
                 limits.append((0.0, 1.0))
         else:
             limits.append((0.0, 1.0))
-    return limits
+    return limits, transform
 
 
 def _load_time_index(path_to_config, num_steps):
@@ -280,24 +283,26 @@ def plot_state(num_var, order='F'):
     state_names = _load_state_names(path_to_config, total_named_vars)
     if state_names is None:
         state_names = [f'var_{i}' for i in range(total_named_vars)]
-    limits = _load_state_limits(path_to_config, state_names)
+    limits, transform = _load_state_limits(path_to_config, state_names)
 
-    # inverse transform time\-series part
-    for idx in range(tot_var):
-        a, b = limits[idx]
-        state_initial[idx, :] = _inverse_transform(state_initial[idx, :], a, b)
-        state_final[idx, :] = _inverse_transform(state_final[idx, :], a, b)
+    # Only transfrom if transform is True in config, otherwise assume already in original scale
+    if transform:
+        # inverse transform time\-series part
+        for idx in range(tot_var):
+            a, b = limits[idx]
+            state_initial[idx, :] = _inverse_transform(state_initial[idx, :], a, b)
+            state_final[idx, :] = _inverse_transform(state_final[idx, :], a, b)
 
-    # inverse transform free variables using last names (e.g. N\_WT, N\_H2)
-    if num_free > 0:
-        for i in range(num_free):
-            a, b = limits[tot_var + i]
-            free_state_initial[i] = _inverse_transform(
-                np.array([free_state_initial[i]]), a, b
-            )[0]
-            free_state_final[i] = _inverse_transform(
-                np.array([free_state_final[i]]), a, b
-            )[0]
+        # inverse transform free variables using last names (e.g. N\_WT, N\_H2)
+        if num_free > 0:
+            for i in range(num_free):
+                a, b = limits[tot_var + i]
+                free_state_initial[i] = _inverse_transform(
+                    np.array([free_state_initial[i]]), a, b
+                )[0]
+                free_state_final[i] = _inverse_transform(
+                    np.array([free_state_final[i]]), a, b
+                )[0]
 
     # time index
     time_index = _load_time_index(path_to_config, num_steps)
