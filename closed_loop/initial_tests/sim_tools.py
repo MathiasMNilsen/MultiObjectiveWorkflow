@@ -1,12 +1,13 @@
 import numpy  as np
 import pandas as pd
 import os
+import shutil
 
 from misc import ecl
 from glob import glob
 from mako.template import Template
 from resdata.summary import Summary
-from p_tqdm import p_imap
+from p_tqdm import p_map
 
 # Internal
 try:
@@ -61,64 +62,94 @@ def simulate(filename, input, dates, rst_idx, input_keys=None, output_keys=None,
     # Define runner function
     def _runner(args):
         fn, simfolder_, df_d = args
-        return simulate_mako(fn, simfolder_, **df_d, rep_dates=dates, rst_index=rst_idx)
+        status = simulate_mako(fn, simfolder_, **df_d, rep_dates=dates, rst_index=rst_idx)
 
-    # p_imap starts processing immediately (faster startup than p_map)
-    print('\nStarting simulation(s)...')
-    list(p_imap(_runner, tasks, num_cpus=njobs, ncols=100, desc='Progress'))
-    print('\n')
+        if status == 0:
+            # Get sim results
+            res = get_sim_results(
+                casename=f'{simfolder_}/{fn}',     
+                datatypes=output_keys, 
+                dates=dates
+            )
 
-    # Collect results
-    output = []
-    for n in range(ne):
-        simfolder = f'Sim{n}'
-        res = get_sim_results(
-            casename=f'{simfolder}/{filename}',     
-            datatypes=output_keys, 
-            dates=dates
-        )
-        output.append(res)
+            # Get restart file
+            if kwargs.get('get_restart', False):
+                get_latest_restart_index(casename=fn, folder=simfolder_)
+        else:
+            res = None
+
+        if kwargs.get('delete_folders', True):
+            shutil.rmtree(simfolder_)
+
+        return res
+
+    #print('Starting simulation(s)...')
+    output = p_map(
+        _runner, 
+        tasks, 
+        num_cpus=njobs, 
+        ncols=100, 
+        desc='Progress', 
+        bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]',
+        colour="#305069",
+        ascii='-◼'
+    )
+
+    # Remove failed simulations
+    output_cleaned = []
+    input_cleaned = []
+    for idx, res in enumerate(output):
+        if res is None:
+            if isinstance(input, list) or isinstance(input, np.ndarray):
+                print(f'Warning: Simulation {idx} failed and will be removed from output.')
+        else:
+            output_cleaned.append(res)
+            try:
+                input_cleaned.append(input[idx])
+            except:
+                input_cleaned = input
+
+    if isinstance(input, np.ndarray):
+        input_cleaned = np.array(input_cleaned)
+  
+    
 
     # Check if output format is provided
     output_type = kwargs.get('output_type', output_type)
 
     # Convert to right output format
     if output_type == 'array':
-        for n in range(ne):
-            output[n] = dataframe_to_vec(output[n])
-        output = np.squeeze(np.array(output))
+        for n in range(len(output_cleaned)):
+            output_cleaned[n] = dataframe_to_vec(output_cleaned[n])
+        output_cleaned = np.squeeze(np.array(output_cleaned))
 
-    elif output_type == 'dataframe' and len(output) == 1:
-        output = output[0]
+    elif output_type == 'dataframe' and len(output_cleaned) == 1:
+        output_cleaned = output_cleaned[0]
 
-    # Get restart file
-    if kwargs.get('get_restart', False):
-        get_latest_restart_index(casename=filename, folder=simfolder)
-
-    # Delete simulation folders
-    if kwargs.get('delete_folders', True):
-        for n in range(ne):
-            simfolder = f'Sim{n}'
-            import shutil
-            shutil.rmtree(simfolder)
-
-    return output
+    if kwargs.get('return_input', False):
+        return input_cleaned, output_cleaned
+    else:
+        return output_cleaned
 
 
 def get_sim_results(casename, datatypes=None, dates=None):
-    case = Summary(casename)
-    if dates == None:
-        dates = case.report_dates
-    res = case.pandas_frame(time_index=dates)
+    try:
+        case = Summary(casename)
+        if dates == None:
+            dates = case.report_dates
+        res = case.pandas_frame(time_index=dates)
 
-    if datatypes == None:
-        return res
-    else:
-        return res[datatypes]
+        if datatypes == None:
+            return res
+        else:
+            return res[datatypes]
+    except:
+        return None
     
 
 def simulate_mako(filename, simfolder='SIM', verbosity=None, **kwargs):
     # Render mako file
+    filename = filename.split("/")[-1]
     output = os.path.join(simfolder, f'{filename}.DATA')
     os.makedirs(simfolder, exist_ok=True)
 
@@ -140,10 +171,7 @@ def simulate_mako(filename, simfolder='SIM', verbosity=None, **kwargs):
         result = subprocess.run(['flow', f'{filename}.DATA'], 
                               cwd=simfolder)
     
-    if result.returncode != 0:
-        raise RuntimeError(f'Flow simulation failed in {simfolder} with return code {result.returncode}')
-
-    return None
+    return result.returncode
     
 def dataframe_to_vec(df: pd.DataFrame, datatypes: list = None):
     vec = np.array([])
@@ -186,9 +214,19 @@ def get_latest_restart_index(casename, folder, delete_files=True):
     os.chdir('../')
     return largest_number
 
+def delete_restart_files(casename, folder, min=82):
+    # Delete all restart files with index higher than 'min'
+    os.chdir(folder)
+    for filename in os.listdir('.'):
+        if filename.startswith(f'{casename}.X'):
+            number = int(filename.split('X')[-1])
+            if number > min:
+                os.remove(filename)
+    os.chdir('../')
 
 
-def facility_consumption(results: pd.DataFrame, baseload=4, windpower=None):
+
+def facility_consumption(results: pd.DataFrame, baseload=8, windpower=None):
 
     # Check for FOPR, FGPR, FWPR, FWIR in results
     if 'FOPR' not in results.columns:
@@ -262,17 +300,76 @@ def production_volume_and_emissions(results: pd.DataFrame=None, windpower=None, 
     res = {
         'co2': np.sum(fac['emission_rate [ton/day]'].values),
         'oil': np.sum(results['FOPR'].values),
-        'gas': np.sum(fac['gas_export [Sm3/day]'].values),
+        'gas': np.sum(results['FGPR'].values),
+        'gas_exp': np.sum(fac['gas_export [Sm3/day]'].values),
         'wi': np.sum(results['FWIR'].values),
         'wp': np.sum(results['FWPR'].values),
     }
     return res
 
+def data_well(data: pd.DataFrame, wellname: str):
+    # Extract data for a specific well from dataframe
+    cols = [col for col in data.columns if wellname in col]
+    return data[cols].copy()
+
 def net_present_value(volumes: dict, econ: dict):
     revenue_oil = volumes['oil'] * econ['oil']
-    revenue_gas = volumes['gas'] * econ['gas']
+    revenue_gas = volumes['gas_exp'] * econ['gas']
     cost_wi     = volumes['wi']  * econ['wi']
     cost_wp     = volumes['wp']  * econ['wp']
     cost_co2    = volumes['co2'] * econ['co2']
     net_cash_flow = revenue_oil + revenue_gas - cost_wi - cost_wp - cost_co2
     return net_cash_flow
+
+
+def print_diff(i, vo, vt, vp=None, filepath=None):
+    
+    # Delta true values
+    dnpv = (vo['npv']/vt['npv']-1)*100
+    dco2 = (vo['co2']/vt['co2']-1)*100
+    doil = (vo['oil']/vt['oil']-1)*100
+    dgas = (vo['gas']/vt['gas']-1)*100
+    dwi  = (vo['wi']/vt['wi']-1)*100
+    dwp  = (vo['wp']/vt['wp']-1)*100
+
+    # Delta proxy values if provided
+    if vp is not None:
+        dnpv_p = (vp['npv']/vt['npv']-1)*100
+        dco2_p = (vp['co2']/vt['co2']-1)*100
+        doil_p = (vp['oil']/vt['oil']-1)*100
+        dgas_p = (vp['gas']/vt['gas']-1)*100
+        dwi_p  = (vp['wi']/vt['wi']-1)*100
+        dwp_p  = (vp['wp']/vt['wp']-1)*100
+    else:
+        dnpv_p = dco2_p = doil_p = dgas_p = dwi_p = dwp_p = 0.00
+
+
+    # Print Information
+    print("\n" + "="*100)
+    print("RESULTS FOR INTERVAL", i+1)
+    print("="*100)
+    print(f"{'Metric':<22} {'Optimized':>12} {'Target':>12} {'Unit':>12} {'Δ (%)':>12} {'Proxy Δ (%)':>18}")
+    print("-"*100)
+    print(f"{'Net Present Value':<22} {vo['npv']:>12.2f} {vt['npv']:>12.2f} {'$':>12} {dnpv:>12.2f} {dnpv_p:>18.2f}")
+    print(f"{'CO2 Emissions':<22} {vo['co2']:>12.2f} {vt['co2']:>12.2f} {'ton':>12} {dco2:>12.2f} {dco2_p:>18.2f}")
+    print(f"{'Oil Production':<22} {vo['oil']:>12.2f} {vt['oil']:>12.2f} {'Sm3':>12} {doil:>12.2f} {doil_p:>18.2f}")
+    print(f"{'Gas Production':<22} {vo['gas']:>12.2f} {vt['gas']:>12.2f} {'Sm3':>12} {dgas:>12.2f} {dgas_p:>18.2f}")
+    print(f"{'Water Injection':<22} {vo['wi']:>12.2f} {vt['wi']:>12.2f} {'Sm3':>12} {dwi:>12.2f} {dwi_p:>18.2f}")
+    print(f"{'Water Production':<22} {vo['wp']:>12.2f} {vt['wp']:>12.2f} {'Sm3':>12} {dwp:>12.2f} {dwp_p:>18.2f}")
+    print("="*100 + "\n")   
+
+    # Write to file if filepath provided
+    if filepath is not None:
+        with open(filepath, 'a') as f:
+            f.write("="*100 + "\n")
+            f.write(f"RESULTS FOR INTERVAL {i+1}\n")
+            f.write("="*100 + "\n")
+            f.write(f"{'Metric':<22} {'Optimized':>12} {'Target':>12} {'Unit':>12} {'Δ':>12} {'Δ (proxy)':>18}\n")
+            f.write("-"*100 + "\n")
+            f.write(f"{'Net Present Value':<22} {vo['npv']:>12.2f} {vt['npv']:>12.2f} {'$':>12} {dnpv:>12.2f} {dnpv_p:>18.2f}\n")
+            f.write(f"{'CO2 Emissions':<22} {vo['co2']:>12.2f} {vt['co2']:>12.2f} {'ton':>12} {dco2:>12.2f} {dco2_p:>18.2f}\n")
+            f.write(f"{'Oil Production':<22} {vo['oil']:>12.2f} {vt['oil']:>12.2f} {'Sm3':>12} {doil:>12.2f} {doil_p:>18.2f}\n")
+            f.write(f"{'Gas Production':<22} {vo['gas']:>12.2f} {vt['gas']:>12.2f} {'Sm3':>12} {dgas:>12.2f} {dgas_p:>18.2f}\n")
+            f.write(f"{'Water Injection':<22} {vo['wi']:>12.2f} {vt['wi']:>12.2f} {'Sm3':>12} {dwi:>12.2f} {dwi_p:>18.2f}\n")
+            f.write(f"{'Water Production':<22} {vo['wp']:>12.2f} {vt['wp']:>12.2f} {'Sm3':>12} {dwp:>12.2f} {dwp_p:>18.2f}\n")
+            f.write("="*100 + "\n\n\n")
