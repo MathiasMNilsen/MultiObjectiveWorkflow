@@ -47,6 +47,10 @@ VAPOIL
 -- Measurement unit used
 METRIC
 
+-- New convertion is to use unified input and output format
+UNIFIN
+UNIFOUT
+
 -- Options for equilibration
 EQLOPTS
  'THPRES'  /
