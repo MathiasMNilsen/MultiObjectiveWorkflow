@@ -29,10 +29,10 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         if wind_power_ens.shape[0] < ne:
             raise ValueError("Wind power ensemble size is smaller than number of ensemble members")
         # Scale the wind power ensemble
-        if len(state['N_WT'].shape) == 1:
+        if state['N_WT'].size == 1:
             wind_power_ens[:ne] *= state['N_WT']
         else:
-            wind_power_ens[:ne] *= np.squeeze(state['N_WT'])[:,np.newaxis]
+            wind_power_ens[:ne] *= np.squeeze(state['N_WT'])[:, np.newaxis]
 
     # Handle H2 storage if applicable
     epf_dict = kwargs.get('epf', {})
@@ -72,8 +72,8 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         wi_rate  = wi_vol/idays
 
         # Get maximum THP
-        thp1 = (pred_data[i+1]['wthp a5'] + pred_data[i]['wthp a5'])/2
-        thp2 = (pred_data[i+1]['wthp a6'] + pred_data[i]['wthp a6'])/2
+        thp1 = (pred_data[i+1]['wthp:a5'] + pred_data[i]['wthp:a5'])/2
+        thp2 = (pred_data[i+1]['wthp:a6'] + pred_data[i]['wthp:a6'])/2
         thp_max = np.maximum(thp1, thp2)
 
         # Get wind power
