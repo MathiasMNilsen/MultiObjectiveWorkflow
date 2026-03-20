@@ -11,7 +11,7 @@ def power_demand_gas_compressor(rate, p_in=5, p_out=100, **kwargs):
     '''
     Source: https://myengineeringtools.com/Compressors/Polytropic_Compression.html#
     '''
-    if rate == 0:
+    if rate <= 0.0:
         return 0
     
     # unpack kwargs
