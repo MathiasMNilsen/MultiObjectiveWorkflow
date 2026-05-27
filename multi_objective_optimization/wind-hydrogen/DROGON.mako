@@ -4,7 +4,7 @@ import numpy as np
 
 -- for some reason there are no properties for iter-3 in realization-6 (and therefore not in Drogon_6)
 <%
-sample_index = 1 if ('sample_index' not in locals() or sample_index is UNDEFINED) else aux_input
+sample_index = aux_input
 if sample_index >= 6:
 	sample_index += 1
 %>
