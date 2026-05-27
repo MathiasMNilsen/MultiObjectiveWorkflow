@@ -54,7 +54,7 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
 
     # Define a data getter
     get_data = lambda i, key: pred_data[i+1][key].squeeze() - pred_data[i][key].squeeze()
-
+    #data = [0.0] * 5  # store data for later analysis (if needed)
     for i in range(len(pred_data)-1):
 
         # Get volumes in interval
@@ -135,6 +135,17 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
             c_iq = h2_storage['penalty']
             penalty = epf(r, c_iq=c_iq[np.newaxis,:])
             epf_dict['penalty'].append(penalty)
+
+        #data[0] += economic_const['wop']*oil_vol/(1 + float(economic_const['disc']))**(ndays/365)
+        #data[1] += economic_const['wgp']*float(gas_vol_exp)/(1 + float(economic_const['disc']))**(ndays/365)
+        #data[2] += economic_const['wwp']*wp_vol/(1 + float(economic_const['disc']))**(ndays/365)
+        #data[3] += economic_const['wwi']*wi_vol/(1 + float(economic_const['disc']))**(ndays/365)
+        #data[4] = capex
+
+    # save npv data for later analysis
+    #import pickle
+    #with open('npv_data.pkl', 'wb') as f:
+    #    pickle.dump(data, f)
 
     if epf_dict:
         print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict['penalty']))}') # Print epf info
