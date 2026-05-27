@@ -10,10 +10,10 @@ np.random.seed(26112025)
 
 copyfile('../init/DROGON.mako' ,'./DROGON.mako')
 
-for w in [0.6, 0.7, 0.8]:
+for w in [0.5, 0.9, 0.99]:
 
     # Define save folder
-    s = f"../results/run2w{w}"
+    s = f"../results_ecmor26/run2w{w}"
     with open('config.yaml', 'r') as f:
         content = f.read()
     new_content = content.replace('save_folder: ""', f'save_folder: "{s}"')

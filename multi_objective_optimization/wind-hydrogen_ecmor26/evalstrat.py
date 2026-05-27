@@ -10,7 +10,7 @@ copyfile('../init/DROGON.mako' ,'./DROGON.mako')
 for w in [0.5]:
 
     # Define save folder
-    s = f"../results/run2eval"
+    s = f"../results_ecmor26/run2eval"
     with open('config.yaml', 'r') as f:
         content = f.read()
     new_content = content.replace('save_folder: ""', f'save_folder: "{s}"')
