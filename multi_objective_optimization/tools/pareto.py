@@ -72,15 +72,23 @@ def optimize_pareto_point(weight, **kwargs):
     cov = ensemble.get_cov()
     bounds = ensemble.get_bounds()
 
-    x = None
+    # Read optimal control strategy from a previous optimization (for analysis purposes)
+    #f = np.load('../results/run2w0.5/optimize_result_3_4.npz', allow_pickle=True)
+    #x0 = f['x']
+
     epf = None
     main_method = kwopt.get('main_method', 'LineSearch')
     if main_method == 'LineSearch':
         from popt.update_schemes.linesearch import LineSearch
         # Define callables
+        normalize = kwopt.get('normalize', False)
+        if normalize:
+            scaling = cov[0, 0]
+        else:
+            scaling = 1.0
         func = lambda x, *args, **kwargs: ensemble.function(x, *args, **kwargs)
-        grad = lambda x, *args, **kwargs: ensemble.gradient(x, *args, **kwargs) / cov[0, 0]
-        hess = lambda x, *args: np.diag(np.diag(ensemble.hessian(x, *args))) / cov[0, 0] ** 2
+        grad = lambda x, *args, **kwargs: ensemble.gradient(x, *args, **kwargs) / scaling
+        hess = lambda x, *args: np.diag(np.diag(ensemble.hessian(x, *args))) / scaling ** 2
         # Run optimization
         res = LineSearch(fun=func,x=x0,jac=grad,hess=hess,args=(cov,),bounds=bounds,**kwopt)
         x = res.x

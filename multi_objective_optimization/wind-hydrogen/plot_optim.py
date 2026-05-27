@@ -407,7 +407,7 @@ def plot_pareto_point():
 
 
 # Set paths
-path_to_files = '../results/wind-hydrogen_weight_0.5/'  # Load results from here
+path_to_files = '../results_ecmor26/wind-hydrogen_weight_0.5/'  # Load results from here
 path_to_config = './'  # Extract config name from path
 path_to_figures = './'  # Save here
 if not os.path.exists(path_to_figures):
