@@ -73,8 +73,9 @@ def optimize_pareto_point(weight, **kwargs):
     bounds = ensemble.get_bounds()
 
     # Read optimal control strategy from a previous optimization (for analysis purposes)
-    #f = np.load('../results/run2w0.5/optimize_result_3_4.npz', allow_pickle=True)
+    #f = np.load('../results_ecmor26/run2w0.5/optimize_result_3_4.npz', allow_pickle=True)
     #x0 = f['x']
+    #x0[63] = 0.5 # reduced number of wind turbines
 
     epf = None
     main_method = kwopt.get('main_method', 'LineSearch')

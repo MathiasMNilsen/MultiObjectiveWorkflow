@@ -8,7 +8,7 @@ from typing import cast
 import yaml
 import pandas as pd
 
-mode = 'publication'  # 'presentation' or 'publication'
+mode = 'presentation'  # 'presentation' or 'publication'
 if mode == 'presentation':
     plt.rcParams.update({
         'font.size': 18,              # base size (ticks)
@@ -18,7 +18,9 @@ if mode == 'presentation':
         'ytick.labelsize': 18,        # y tick labels
         'legend.fontsize': 18,        # legend
     })
-    figsize = 18.0
+    figsize = 12.0
+    _annot_fontsize = 14
+    _obj_func_left = 0.14
 elif mode == 'publication':
     plt.rcParams.update({
         'font.size': 12,  # base text
@@ -29,6 +31,8 @@ elif mode == 'publication':
         'legend.fontsize': 10,
     })
     figsize = 12.0
+    _annot_fontsize = 10
+    _obj_func_left = 0.07
 ratio = 16 / 9
 
 def _load_state_names(path_to_config, num_state_vars):
@@ -354,7 +358,7 @@ def plot_obj_func(obj_scaling=None):
         #    subtitle += f' Objective scaling = {obj_scaling:.2g}.'
         #fig.text(0.5, 0.85, subtitle, ha='center', va='top', fontsize=18, color='0.35')
 
-        fig.subplots_adjust(top=0.88, bottom=0.09, left=0.07, right=0.985, hspace=0.12)
+        fig.subplots_adjust(top=0.88, bottom=0.09, left=_obj_func_left, right=0.985, hspace=0.12)
         fig.savefig(str(path_to_figures) + '/obj_func_epf', bbox_inches='tight', pad_inches=0.04)
     else:
         fig, ax = plt.subplots(1, 1, figsize=(11, 6.5))
@@ -395,6 +399,11 @@ def plot_state(num_var, order='F', state_actual=None):
     results = [name for name in files if "optimize_result" in name]
     if not results:
         return
+
+    # Scale title/axis-label fonts down for half-size figures in this function.
+    _state_text_scale = 0.75
+    _state_title_size = float(plt.rcParams['axes.titlesize']) * _state_text_scale
+    _state_label_size = float(plt.rcParams['axes.labelsize']) * _state_text_scale
 
     ind = [i for i, ltr in enumerate(results[0]) if ltr == '_']
     if len(ind) > 2:
@@ -511,7 +520,7 @@ def plot_state(num_var, order='F', state_actual=None):
                 ax[w].plot(x_vals[:-1], var_fin, 'o', color='#E45756', markersize=6)
 
             ax[w].tick_params(direction='out', length=4, width=0.8)
-            ax[w].set_xlabel(x_label if w >= num - c else '')
+            ax[w].set_xlabel(x_label if w >= num - c else '', fontsize=_state_label_size)
 
             if len(var_ini) > 1:
                 if time_index is not None:
@@ -524,8 +533,8 @@ def plot_state(num_var, order='F', state_actual=None):
             name = state_names[global_idx]
             title = str(name) if name is not None else f'Variable {w + 1}'
             title_text, unit_text = _split_label_and_unit(f'{title} (Sm3/day)')
-            ax[w].set_title(title_text, pad=6)
-            ax[w].set_ylabel(unit_text)
+            ax[w].set_title(title_text, pad=6, fontsize=_state_title_size)
+            ax[w].set_ylabel(unit_text, fontsize=_state_label_size)
             ax[w].grid(True, axis='y', linestyle='--', alpha=0.28)
             ax[w].spines['top'].set_visible(False)
             ax[w].spines['right'].set_visible(False)
@@ -618,14 +627,14 @@ def plot_state(num_var, order='F', state_actual=None):
                 bbox={'facecolor': 'black', 'edgecolor': 'none', 'alpha': 0.40, 'pad': 1.6} if inside else None,
             )
         #ax.tick_params(labelsize=12)
-        ax.set_xlabel('State')
+        ax.set_xlabel('State', fontsize=_state_label_size)
         ax.set_xticks(x_pos)
         ax.set_xticklabels(['Initial', 'Final'])
         global_idx = tot_var + i
         name = state_names[global_idx] if global_idx < len(state_names) else None
         title_text, unit_text = _split_label_and_unit(yl)
-        ax.set_ylabel(unit_text)
-        ax.set_title(title_text)
+        ax.set_ylabel(unit_text, fontsize=_state_label_size)
+        ax.set_title(title_text, fontsize=_state_title_size)
         if y_min is not None and y_max is not None:
             ax.set_ylim(y_min, y_max)
         else:
@@ -898,7 +907,7 @@ def plot_pareto_curve(selected_weights=None):
     with open(config_path, 'r') as f:
         cfg = yaml.safe_load(f) or {}
 
-    cfg_dir = os.path.basename(os.path.normpath(path_to_config))
+    cfg_dir = os.path.basename(os.path.normpath(path_to_files))
     match = re.search(r'run\d+', cfg_dir)
     if match is None:
         return
@@ -962,7 +971,8 @@ def plot_pareto_curve(selected_weights=None):
     capex_vals = np.array([row[1] for row in candidates], dtype=float) / 1e6
     npv_vals = np.array([row[2] for row in candidates], dtype=float) / 1e6
 
-    fig, ax = plt.subplots(1, 1, figsize=(figsize * 0.75, figsize * 0.75 / ratio))
+    # In the ECMOR paper figsize * 0.75 was used.
+    fig, ax = plt.subplots(1, 1, figsize=(figsize, figsize / ratio))
     ax.scatter(capex_vals, npv_vals, s=65, color='#1f77b4', zorder=4)
 
     curve_x, curve_y = _least_squares_curve_eval(capex_vals, npv_vals, num=400)
@@ -972,7 +982,7 @@ def plot_pareto_curve(selected_weights=None):
     x_span = max(np.ptp(capex_vals), 1.0)
     y_span = max(np.ptp(npv_vals), 1.0)
     for x, y, w in zip(capex_vals, npv_vals, weights):
-        ax.text(x + 0.025 * x_span, y + 0.015 * y_span, f'w={w:g}', fontsize=10, color='0.25')
+        ax.text(x + 0.025 * x_span, y + 0.015 * y_span, f'w={w:g}', fontsize=_annot_fontsize, color='0.25')
 
     ax.set_title('Pareto curve across weights')
     ax.set_xlabel('CAPEX (Million USD)')
@@ -992,6 +1002,7 @@ def plot_pareto_curve(selected_weights=None):
     os.makedirs(results_root, exist_ok=True)
     fig.tight_layout()
     fig.savefig(os.path.join(results_root, f'pareto_curve_{case_name}.png'), bbox_inches='tight', pad_inches=0.04)
+
 
 def plot_wind_power_profiles():
     wind_power_ens = np.load('./init/wp_ens.npy')
@@ -1040,13 +1051,14 @@ def plot_wind_power_profiles():
     fig.savefig(os.path.join(results_root, 'wind_power_profiles'), bbox_inches='tight', pad_inches=0.04)
 
 
+
 # Set paths
 path_to_files = 'results_ecmor26/run2w0.5/'  # Load results from here
 path_to_config = 'wind-hydrogen_ecmor26/'  # Extract config name from path
 path_to_figures = path_to_files  # Save here
 if not os.path.exists(path_to_figures):
     os.mkdir(path_to_figures)
-results_root = './results'
+results_root = './results_ecmor26/'  # Root folder for all results (for Pareto curve)
 
 # Load reference values (for scaling) and actual state
 file = np.load('./init/ref_values.npz', allow_pickle=True)
@@ -1058,9 +1070,9 @@ final_data = final_data['final_data'][()]
 
 # Plot stuff
 #plot_obj_func(2845473526.0)
-#plot_state([1,1,1,1,1,1,1], order='C', state_actual=final_data)
+plot_state([1,1,1,1,1,1,1], order='C', state_actual=final_data)
 #plot_pareto_point()
-plot_pareto_curve(selected_weights=[0.5, 0.9, 0.99])
+#plot_pareto_curve(selected_weights=[0.5, 0.9, 0.99])
 #plot_wind_power_profiles()
 
 plt.show()
