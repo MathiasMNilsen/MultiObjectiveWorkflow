@@ -38,6 +38,6 @@ def power_demand_gas_compressor(rate, p_in=5, p_out=100, **kwargs):
     power = power/1000 # kW --> MWs
     return power
 
-power_demand_gas_compressor = np.vectorize(power_demand_gas_compressor)
+power_demand_gas_compressor = np.vectorize(power_demand_gas_compressor, otypes=[float])
 
 

@@ -9,3 +9,4 @@ examples/*
 .eggs/
 *.egg
 .claude/
+.pytest_cache/

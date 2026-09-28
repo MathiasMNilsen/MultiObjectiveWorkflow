@@ -42,13 +42,6 @@ def prepare_context():
     # Set user options
     kwsim['parallel'] = parallel
 
-    # debug
-    kwens['ne'] = 2
-    kwens['num_models'] = 2
-    kwopt['resample'] = 1
-    kwopt['maxiter'] = 2
-    kwopt['epf']['max_epf_iter'] = 2
-
     return kwopt, kwens, kwsim, save_root, project_root
 
 def run_cases(kwopt, kwens, kwsim, save_root, project_root):

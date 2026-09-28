@@ -147,7 +147,7 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     #with open('npv_data.pkl', 'wb') as f:
     #    pickle.dump(data, f)
 
-    if epf_dict:
+    if epf_dict and epf_dict['penalty']:
         print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict['penalty']))}') # Print epf info
                 
     co2 = np.array(co2)    

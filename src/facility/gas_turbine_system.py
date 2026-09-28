@@ -54,5 +54,5 @@ def turbine_system_consumption(powerload, **kwargs):
     return emission_rate, fuel_mass_rate/1000
 
 
-turbine_system_consumption = np.vectorize(turbine_system_consumption)
+turbine_system_consumption = np.vectorize(turbine_system_consumption, otypes=[float, float])
 
