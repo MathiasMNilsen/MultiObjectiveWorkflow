@@ -80,11 +80,11 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         wind_power = wind_power_ens[:, ndays:ndays+idays]
         
         # Row-stack rates
-        oil_rate = np.row_stack([oil_rate]*idays).T
-        gas_rate = np.row_stack([gas_rate]*idays).T
-        wp_rate = np.row_stack([wp_rate]*idays).T
-        wi_rate = np.row_stack([wi_rate]*idays).T
-        thp_max = np.row_stack([thp_max]*idays).T
+        oil_rate = np.vstack([oil_rate]*idays).T
+        gas_rate = np.vstack([gas_rate]*idays).T
+        wp_rate = np.vstack([wp_rate]*idays).T
+        wi_rate = np.vstack([wi_rate]*idays).T
+        thp_max = np.vstack([thp_max]*idays).T
 
         # Calculate emissions
         fuel_rate = 0.0
