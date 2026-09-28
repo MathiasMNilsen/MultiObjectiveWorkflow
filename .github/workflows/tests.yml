@@ -18,6 +18,11 @@ jobs:
           cache: pip
 
       - name: Install dependencies
+        env:
+          # PyPI timeouts otherwise make pip backtrack to ancient sdists (e.g. matplotlib) that fail to build
+          PIP_DEFAULT_TIMEOUT: '60'
+          PIP_RETRIES: '10'
+          PIP_ONLY_BINARY: matplotlib
         run: |
           python -m pip install --upgrade pip
           # PET (popt) and SimulatorWrap (subsurface) are not on PyPI. Pinned to commits that still have
