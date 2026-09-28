@@ -1,0 +1,11 @@
+outputs/
+.idea/
+__pycache__/
+examples/*
+!examples/run-wind_hydrogen.py
+!examples/run-wind_gas.py
+!examples/plot_results.py
+*.egg-info/
+.eggs/
+*.egg
+.claude/
