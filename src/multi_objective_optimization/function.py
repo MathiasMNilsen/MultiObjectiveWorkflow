@@ -2,10 +2,17 @@ import numpy as np
 
 from popt.cost_functions.epf import epf
 
+<<<<<<<< HEAD:src/multi_objective_optimization/function.py
 from facility.gas_compressor import power_demand_gas_compressor
 from facility.pump import power_demand_pump
 from facility.water_treatment import power_demand_water_treatment
 from facility.gas_turbine_system import turbine_system_consumption
+========
+from multi_objective_optimization.facility.gas_compressor import power_demand_gas_compressor
+from multi_objective_optimization.facility.pump import power_demand_pump
+from multi_objective_optimization.facility.water_treatment import power_demand_water_treatment
+from multi_objective_optimization.facility.gas_turbine_system import turbine_system_consumption
+>>>>>>>> origin/main:multi_objective_optimization/tools/function.py
 
 def objectives(pred_data, input_dict, true_order, **kwargs):
 
@@ -147,7 +154,11 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     #with open('npv_data.pkl', 'wb') as f:
     #    pickle.dump(data, f)
 
+<<<<<<<< HEAD:src/multi_objective_optimization/function.py
     if epf_dict and epf_dict['penalty']:
+========
+    if epf_dict:
+>>>>>>>> origin/main:multi_objective_optimization/tools/function.py
         print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict['penalty']))}') # Print epf info
                 
     co2 = np.array(co2)    
