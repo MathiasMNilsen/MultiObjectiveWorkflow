@@ -1,0 +1,1662 @@
+
+
+
+ ########  #          ######   #           #
+ #         #         #      #   #         # 
+ #####     #         #      #    #   #   #  
+ #         #         #      #     # # # #   
+ #         #######    ######       #   #    
+
+Flow is a simulator for fully implicit three-phase black-oil flow, and is part of OPM.
+For more information visit: https://opm-project.org 
+
+Flow Version     =  2025.10 (Ubuntu 24.04.3 LTS: 2025.10-1~noble)
+Machine name     =  cno-0001.ad.norceresearch.no (Number of logical cores: 144, Memory size: 1546605.87 MB) 
+Operating system =  Linux x86_64 (Kernel: 6.8.0-59-generic, #61-Ubuntu SMP PREEMPT_DYNAMIC Fri Apr 11 23:16:11 UTC 2025 )
+Build time       =  
+User             =  mani
+Simulation started on 12-01-2026 at 09:32:05 hrs
+Using 1 MPI processes with 2 OMP threads on each 
+Parameters used by Flow:
+# [known parameters which were specified at run-time]
+EclDeckFileName="DROGON.DATA" # default: ""
+# [parameters which were specified at compile-time]
+AcceleratorMode="none"
+ActionParsingStrictness="normal"
+AddCorners="0"
+AllowDistributedWells="0"
+AllowSplittingInactiveWells="1"
+AlternativeWellRateInit="1"
+CheckGroupConstraintsInnerWellIterations="1"
+CheckSatfuncConsistency="1"
+ContinueOnConvergenceError="0"
+ConvergenceMonitoring="0"
+ConvergenceMonitoringCutOff="6"
+ConvergenceMonitoringDecayFactor="0.75"
+CprReuseInterval="30"
+CprReuseSetup="4"
+CprWeightsThreadParallel="0"
+DbhpMaxRel="1"
+DebugEmitCellPartition="0"
+DebugVerbosityLevel="1"
+DpMaxRel="0.3"
+DsMax="0.2"
+DwellFractionMax="0.2"
+EclOutputDoublePrecision="0"
+EclOutputInterval="-1"
+EdgeConformal="0"
+EdgeWeightsMethod="transmissibility"
+EnableAdaptiveTimeStepping="1"
+EnableAsyncEclOutput="1"
+EnableAsyncVtkOutput="1"
+EnableDriftCompensation="0"
+EnableDryRun="auto"
+EnableEclOutput="1"
+EnableEsmry="0"
+EnableGravity="1"
+EnableGridAdaptation="0"
+EnableIntensiveQuantityCache="1"
+EnableLoggingFalloutWarning="0"
+EnableOpmRstFile="0"
+EnableStorageCache="1"
+EnableTerminalOutput="1"
+EnableThermodynamicHints="0"
+EnableTuning="0"
+EnableVtkOutput="0"
+EnableWellOperabilityCheck="1"
+EnableWellOperabilityCheckIter="0"
+EnableWriteAllSolutions="0"
+EndTime="1e+100"
+ExplicitRockCompaction="0"
+ExternalPartition=""
+ForceDisableFluidInPlaceOutput="0"
+ForceDisableResvFluidInPlaceOutput="0"
+FullTimeStepInitially="0"
+GpuAwareMpi="0"
+GpuDeviceId="0"
+HyNeConfigFile="hybridNewtonConfig.json"
+IgnoreKeywords=""
+IluFillinLevel="0"
+IluRedblack="0"
+IluRelaxation="0.9"
+IluReorderSpheres="0"
+ImbalanceTol="1.1"
+InitialTimeStepInDays="1"
+InitialTimeStepSize="86400"
+InjMultDampMult="0.9"
+InjMultMinDampFactor="0.05"
+InjMultOscThreshold="0.1"
+InputSkipMode="100"
+LinearSolver="cprw"
+LinearSolverAccelerator="cpu"
+LinearSolverIgnoreConvergenceFailure="0"
+LinearSolverMaxIter="200"
+LinearSolverPrintJsonDefinition="1"
+LinearSolverReduction="0.01"
+LinearSolverRestart="40"
+LinearSolverVerbosity="0"
+LoadFile=""
+LoadStep="-1"
+LocalDomainsOrderingMeasure="maxpressure"
+LocalDomainsPartitionWellNeighborLevels="1"
+LocalDomainsPartitioningImbalance="1.03"
+LocalDomainsPartitioningMethod="zoltan"
+LocalSolveApproach="gauss-seidel"
+LocalToleranceScalingCnv="0.1"
+LocalToleranceScalingMb="1"
+LocalWellSolveControlSwitching="1"
+MatrixAddWellContributions="0"
+MaxInnerIterMsWells="100"
+MaxInnerIterWells="50"
+MaxLocalSolveIterations="20"
+MaxNewtonIterationsWithInnerWellIterations="8"
+MaxPressureChangeMsWells="1e+06"
+MaxResidualAllowed="1e+07"
+MaxSinglePrecisionDays="20"
+MaxTemperatureChange="5"
+MaxTimeStepDivisions="10"
+MaxTimeStepSize="inf"
+MaxWellStatusSwitchForWells="99"
+MaxWellStatusSwitchInInnerIterWells="99"
+MaxWelleqIter="30"
+MaximumNumberOfGroupSwitches="3"
+MaximumNumberOfWellSwitches="3"
+MaximumWaterSaturation="1"
+MetisParams="default"
+MiluVariant="ilu"
+MinStrictCnvIter="-1"
+MinStrictMbIter="-1"
+MinTimeStepBasedOnNewtonIterations="0"
+MinTimeStepBeforeShuttingProblematicWellsInDays="0.01"
+MinTimeStepSize="0"
+NetworkMaxOuterIterations="10"
+NetworkMaxPressureUpdateInBars="5"
+NetworkMaxStrictOuterIterations="10"
+NetworkMaxSubIterations="20"
+NetworkPressureUpdateDampingFactor="0.1"
+NewtonMaxError="1e+100"
+NewtonMaxIterations="20"
+NewtonMaxRelax="0.5"
+NewtonMinIterations="2"
+NewtonRelaxationType="dampen"
+NewtonTargetIterations="10"
+NewtonTolerance="0.01"
+NewtonVerbose="1"
+NewtonWriteConvergence="0"
+NlddLocalLinearSolver="ilu0"
+NlddLocalLinearSolverMaxIter="200"
+NlddLocalLinearSolverReduction="0.01"
+NlddNumInitialNewtonIter="1"
+NlddRelativeMobilityChangeTol="0.1"
+NonlinearSolver="newton"
+NumLocalDomains="0"
+NumOverlap="1"
+NumPressurePointsEquil="2000"
+NumSatfuncConsistencySamplePoints="5"
+NupcolGroupRateTolerance="0.001"
+OpenclIluParallel="1"
+OpenclPlatformId="0"
+OutputDir=""
+OutputExtraConvergenceInfo="none"
+OutputInterval="1"
+OutputMode="all"
+OwnerCellsFirst="1"
+ParameterFile=""
+ParsingStrictness="normal"
+PartitionMethod="zoltanwell"
+PreSolveNetwork="1"
+PredeterminedTimeStepsFile=""
+PressureMax="1e+99"
+PressureMin="-1e+99"
+PressureScale="1"
+PriVarOscilationThreshold="1e-05"
+PrintParameters="2"
+ProjectSaturations="0"
+RegularizationFactorWells="100"
+RelaxedLinearSolverReduction="0.01"
+RelaxedMaxPvFraction="0.03"
+RelaxedPressureTolMsw="10000"
+RelaxedWellFlowTol="0.001"
+RestartTime="-1e+35"
+RestartWritingInterval="16777215"
+SaveFile=""
+SaveStep=""
+ScaleLinearSystem="0"
+SchedRestart="0"
+SerialPartitioning="0"
+ShutUnsolvableWells="1"
+Slave="0"
+SolveWelleqInitially="1"
+SolverContinueOnConvergenceFailure="0"
+SolverGrowthFactor="2"
+SolverMaxGrowth="3"
+SolverMaxRestarts="10"
+SolverMaxTimeStepInDays="365"
+SolverMinTimeStep="1e-12"
+SolverRestartFactor="0.33"
+SolverVerbosity="1"
+StrictInnerIterWells="40"
+StrictOuterIterWells="6"
+TemperatureMax="1e+09"
+TemperatureMin="0"
+ThreadsPerProcess="2"
+TimeStepAfterEventInDays="-1"
+TimeStepControl="pid+newtoniteration"
+TimeStepControlDecayDampingFactor="1"
+TimeStepControlDecayRate="0.75"
+TimeStepControlFileName="timesteps"
+TimeStepControlGrowthDampingFactor="3.2"
+TimeStepControlGrowthRate="1.25"
+TimeStepControlMaxReductionTimeStep="0.1"
+TimeStepControlParameters="0.125;0.25;0.125;0.75;0.25"
+TimeStepControlRejectCompletedStep="0"
+TimeStepControlSafetyFactor="0.8"
+TimeStepControlTargetIterations="30"
+TimeStepControlTargetNewtonIterations="8"
+TimeStepControlTolerance="0.1"
+TimeStepControlToleranceTestVersion="standard"
+TimeStepVerbosity="1"
+ToleranceCnv="0.01"
+ToleranceCnvEnergy="0.01"
+ToleranceCnvEnergyRelaxed="1"
+ToleranceCnvRelaxed="1"
+ToleranceEnergyBalance="1e-07"
+ToleranceEnergyBalanceRelaxed="1e-06"
+ToleranceMb="1e-07"
+ToleranceMbRelaxed="1e-06"
+TolerancePressureMsWells="1000"
+ToleranceWellControl="1e-07"
+ToleranceWells="0.0001"
+UpdateEquationsScaling="0"
+UseAverageDensityMsWells="0"
+UseGmres="0"
+UseHyNe="0"
+UseImplicitIpr="1"
+UseMultisegmentWell="1"
+UseUpdateStabilization="1"
+VerifyGpuAwareMpi="0"
+VtkWriteAverageMolarMasses="0"
+VtkWriteDensities="1"
+VtkWriteDiffusionCoefficients="0"
+VtkWriteDofIndex="0"
+VtkWriteEffectiveDiffusionCoefficients="0"
+VtkWriteExtrusionFactor="0"
+VtkWriteFilterVelocities="0"
+VtkWriteFugacities="0"
+VtkWriteFugacityCoeffs="0"
+VtkWriteGasDissolutionFactor="0"
+VtkWriteGasFormationVolumeFactor="0"
+VtkWriteGasSaturationPressure="0"
+VtkWriteIntrinsicPermeabilities="0"
+VtkWriteMassFractions="0"
+VtkWriteMobilities="0"
+VtkWriteMolarities="0"
+VtkWriteMoleFractions="1"
+VtkWriteOilFormationVolumeFactor="0"
+VtkWriteOilSaturationPressure="0"
+VtkWriteOilVaporizationFactor="0"
+VtkWritePorosity="1"
+VtkWritePotentialGradients="0"
+VtkWritePressures="1"
+VtkWritePrimaryVars="0"
+VtkWritePrimaryVarsMeaning="0"
+VtkWriteProcessRank="0"
+VtkWriteRelativePermeabilities="1"
+VtkWriteSaturatedGasOilVaporizationFactor="0"
+VtkWriteSaturatedOilGasDissolutionFactor="0"
+VtkWriteSaturationRatios="0"
+VtkWriteSaturations="1"
+VtkWriteTemperature="1"
+VtkWriteTortuosities="0"
+VtkWriteTotalMassFractions="0"
+VtkWriteTotalMoleFractions="0"
+VtkWriteTracerConcentration="0"
+VtkWriteViscosities="0"
+VtkWriteWaterFormationVolumeFactor="0"
+WaterOnlyThreshold="1"
+WellGroupConstraintsMaxIterations="1"
+ZoltanImbalanceTol="1.1"
+ZoltanParams="graph"
+ZoltanPhgEdgeSizeThreshold="0.35"
+
+Reading deck file 'DROGON.DATA'
+    0 Reading RUNSPEC  in DROGON.DATA line 21
+    1 Reading TITLE    in DROGON.DATA line 25
+    2 Reading START    in DROGON.DATA line 29
+    3 Reading OIL      in DROGON.DATA line 33
+    4 Reading GAS      in DROGON.DATA line 34
+    5 Reading WATER    in DROGON.DATA line 35
+    6 Reading DISGAS   in DROGON.DATA line 36
+    7 Reading VAPOIL   in DROGON.DATA line 37
+    8 Reading METRIC   in DROGON.DATA line 40
+    9 Reading EQLOPTS  in DROGON.DATA line 43
+   10 Reading TRACERS  in DROGON.DATA line 48
+   11 Reading DIMENS   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/runspec/drogon.dimens line 9
+   12 Reading TABDIMS  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/runspec/drogon.tabdims line 9
+   13 Reading EQLDIMS  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/runspec/drogon.eqldims line 9
+   14 Reading REGDIMS  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/runspec/drogon.regdims line 9
+   15 Reading GRIDOPTS in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/runspec/drogon.gridopts line 9
+   16 Reading FAULTDIM in DROGON.DATA line 70
+   17 Reading WELLDIMS in DROGON.DATA line 78
+   18 Reading WSEGDIMS in DROGON.DATA line 86
+   19 Reading NOINSPEC in DROGON.DATA line 96
+   20 Reading NORSSPEC in DROGON.DATA line 99
+   21 Reading MESSAGES in DROGON.DATA line 105
+   22 Reading VFPIDIMS in DROGON.DATA line 108
+   23 Reading GRID     in DROGON.DATA line 112
+   24 Reading NOECHO   in DROGON.DATA line 114
+   25 Reading NEWTRAN  in DROGON.DATA line 116
+   26 Reading GRIDFILE in DROGON.DATA line 118
+   27 Reading INIT     in DROGON.DATA line 121
+   28 Reading PINCH    in DROGON.DATA line 125
+   29 Reading MINPV    in DROGON.DATA line 128
+   30 Reading MAPAXES  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.grid line 9
+   31 Reading SPECGRID in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.grid line 13
+   32 Reading COORD    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.grid line 16
+   33 Reading ZCORN    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.grid line 5236
+   34 Reading ACTNUM   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.grid line 213435
+   35 Reading FAULTS   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.faults line 17
+   36 Reading PORO     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/Drogon_Mean/drogon.poro line 1
+   37 Reading PERMX    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/Drogon_Mean/drogon.permx line 1
+   38 Reading PERMY    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/Drogon_Mean/drogon.permy line 1
+   39 Reading PERMZ    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/Drogon_Mean/drogon.permz line 1
+   40 Reading MULTNUM  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.multnum line 17
+   41 Reading MULTREGT in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.multregt line 8
+   42 Reading EDIT     in DROGON.DATA line 155
+   43 Reading MULTIPLY in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 17
+   44 Reading EDITNNC  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381
+   45 Reading PROPS    in DROGON.DATA line 163
+   46 Reading FILLEPS  in DROGON.DATA line 166
+   47 Reading SWOF     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.sattab line 8
+   48 Reading SGOF     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.sattab line 618
+   49 Reading ROCKOPTS in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 11
+   50 Reading ROCK     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 14
+   51 Reading PVTW     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 19
+   52 Reading DENSITY  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 23
+   53 Reading PVTO     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 28
+   54 Reading PVTG     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/props/drogon.pvt line 385
+   55 Reading EXTRAPMS in DROGON.DATA line 183
+   56 Reading REGIONS  in DROGON.DATA line 187
+   57 Reading EQLNUM   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/regions/drogon.eqlnum line 9
+   58 Reading FIPNUM   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/regions/drogon.fipnum line 9
+   59 Reading FIPZON   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/regions/drogon.fipzon line 17
+   60 Reading PVTNUM   in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/regions/drogon.pvtnum line 9
+   61 Reading SOLUTION in DROGON.DATA line 206
+   62 Reading RESTART  in DROGON.DATA line 209
+   63 Reading SUMMARY  in DROGON.DATA line 242
+   64 Reading WWIT     in DROGON.DATA line 248
+   65 Reading WWIR     in DROGON.DATA line 252
+   66 Reading WWPI     in DROGON.DATA line 256
+   67 Reading WBHP     in DROGON.DATA line 260
+   68 Reading WTHP     in DROGON.DATA line 264
+   69 Reading SUMTHIN  in DROGON.DATA line 271
+   70 Reading FOPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 14
+   71 Reading FOPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 15
+   72 Reading FGPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 16
+   73 Reading FGPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 17
+   74 Reading FWPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 18
+   75 Reading FWPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 19
+   76 Reading FLPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 20
+   77 Reading FLPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 21
+   78 Reading FVPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 22
+   79 Reading FOPRF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 23
+   80 Reading FOPRS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 24
+   81 Reading FGSR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 25
+   82 Reading FGPRF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 26
+   83 Reading FGPRS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 27
+   84 Reading FOPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 31
+   85 Reading FWPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 32
+   86 Reading FGPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 33
+   87 Reading FMWPR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 37
+   88 Reading FMWIN    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 38
+   89 Reading FVIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 40
+   90 Reading FWIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 41
+   91 Reading FWIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 42
+   92 Reading FGIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 43
+   93 Reading FGIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 44
+   94 Reading FGLIR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 46
+   95 Reading FMCTP    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 50
+   96 Reading FVPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 55
+   97 Reading FOPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 56
+   98 Reading FOPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 57
+   99 Reading FWPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 58
+  100 Reading FWPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 59
+  101 Reading FGPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 60
+  102 Reading FGPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 61
+  103 Reading FWIT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 62
+  104 Reading FWITH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 63
+  105 Reading FGIT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 64
+  106 Reading FGITH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 65
+  107 Reading FOPTF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 66
+  108 Reading FOPTS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 67
+  109 Reading FWIP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 71
+  110 Reading FOIP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 72
+  111 Reading FGIP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 73
+  112 Reading FWCT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 75
+  113 Reading FWCTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 76
+  114 Reading FGOR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 77
+  115 Reading FGORH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 78
+  116 Reading FGLR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 79
+  117 Reading FWGR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 80
+  118 Reading FPR      in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 82
+  119 Reading RPR      in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 84
+  120 Reading ROIP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 86
+  121 Reading ROE      in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 88
+  122 Reading ROIPL    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 90
+  123 Reading ROIPG    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 92
+  124 Reading RGIP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 94
+  125 Reading RGIPL    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 96
+  126 Reading RGIPG    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 98
+  127 Reading RGPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 100
+  128 Reading RGPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 102
+  129 Reading GMWPR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 110
+  130 Reading GGLIR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 113
+  131 Reading GOPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 115
+  132 Reading GOPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 117
+  133 Reading GGPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 119
+  134 Reading GGPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 121
+  135 Reading GWPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 123
+  136 Reading GWPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 125
+  137 Reading GVPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 127
+  138 Reading GLPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 129
+  139 Reading GOPRF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 131
+  140 Reading GOPRS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 133
+  141 Reading GGPRF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 135
+  142 Reading GGPRS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 137
+  143 Reading GWCT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 139
+  144 Reading GWCTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 141
+  145 Reading GGOR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 143
+  146 Reading GGORH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 145
+  147 Reading GWGR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 147
+  148 Reading GGLR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 149
+  149 Reading GOPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 151
+  150 Reading GOPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 153
+  151 Reading GGPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 155
+  152 Reading GGPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 157
+  153 Reading GWPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 159
+  154 Reading GWPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 161
+  155 Reading GVPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 163
+  156 Reading GLPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 165
+  157 Reading GOPTF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 167
+  158 Reading GOPTS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 169
+  159 Reading GGPTF    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 171
+  160 Reading GGPTS    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 173
+  161 Reading GWIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 175
+  162 Reading GVIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 177
+  163 Reading GWIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 179
+  164 Reading GGIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 181
+  165 Reading GGIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 183
+  166 Reading GOPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 186
+  167 Reading GGPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 188
+  168 Reading GWPP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 190
+  169 Reading GMCTP    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 195
+  170 Reading WOPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 199
+  171 Reading WOPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 201
+  172 Reading WGPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 203
+  173 Reading WGPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 205
+  174 Reading WWPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 207
+  175 Reading WWPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 209
+  176 Reading WLPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 211
+  177 Reading WLPRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 213
+  178 Reading WOPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 216
+  179 Reading WWPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 218
+  180 Reading WGPT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 220
+  181 Reading WOPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 222
+  182 Reading WWPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 224
+  183 Reading WGPTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 226
+  184 Reading WWCT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 229
+  185 Reading WWCTH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 231
+  186 Reading WGOR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 233
+  187 Reading WGORH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 235
+  188 Reading WWIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 237
+  189 Reading WWIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 239
+  190 Reading WGIR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 241
+  191 Reading WGIRH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 243
+  192 Reading WWIT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 245
+  193 Reading WWITH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 247
+  194 Reading WGIT     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 249
+  195 Reading WGITH    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 251
+  196 Reading WBHP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 254
+  197 Reading WTHP     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 256
+  198 Reading WPI      in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 258
+  199 Reading WVPR     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 260
+  200 Reading WBP      in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 262
+  201 Reading WBP4     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 264
+  202 Reading WBP9     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 266
+  203 Reading WMCTL    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 268
+  204 Reading WGLIR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 271
+  205 Reading WOGLR    in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 276
+  206 Reading WTPRWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 282
+  207 Reading WTPRWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 284
+  208 Reading WTPTWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 287
+  209 Reading WTPTWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 289
+  210 Reading WTPCWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 292
+  211 Reading WTPCWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 294
+  212 Reading WTIRWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 297
+  213 Reading WTIRWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 299
+  214 Reading WTITWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 302
+  215 Reading WTITWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 304
+  216 Reading WTICWT1  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 307
+  217 Reading WTICWT2  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 309
+  218 Reading TCPU     in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 321
+  219 Reading TCPUDAY  in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 322
+  220 Reading SCHEDULE in DROGON.DATA line 279
+  221 Reading VFPINJ   in DROGON.DATA line 282
+  222 Reading WELSPECS in DROGON.DATA line 304
+  223 Reading COMPORD  in DROGON.DATA line 309
+  224 Reading COMPDAT  in DROGON.DATA line 313
+  225 Reading WELSEGS  in DROGON.DATA line 357
+  226 Reading WSEGVALV in DROGON.DATA line 455
+  227 Reading COMPSEGS in DROGON.DATA line 501
+  228 Reading GCONPROD in DROGON.DATA line 544
+  229 Reading WCONPROD in DROGON.DATA line 548
+  230 Reading WCONINJE in DROGON.DATA line 557
+  231 Reading TUNING   in DROGON.DATA line 563
+  232 Reading RPTRST   in DROGON.DATA line 572
+  233 Reading DATES    in DROGON.DATA line 577
+  234 Reading WCONPROD in DROGON.DATA line 581
+  235 Reading WCONINJE in DROGON.DATA line 589
+  236 Reading DATES    in DROGON.DATA line 597
+  237 Reading DATES    in DROGON.DATA line 603
+  238 Reading DATES    in DROGON.DATA line 609
+  239 Reading DATES    in DROGON.DATA line 615
+  240 Reading DATES    in DROGON.DATA line 621
+  241 Reading DATES    in DROGON.DATA line 627
+  242 Reading WCONPROD in DROGON.DATA line 631
+  243 Reading WCONINJE in DROGON.DATA line 639
+  244 Reading DATES    in DROGON.DATA line 647
+  245 Reading DATES    in DROGON.DATA line 653
+  246 Reading DATES    in DROGON.DATA line 659
+  247 Reading DATES    in DROGON.DATA line 665
+  248 Reading DATES    in DROGON.DATA line 671
+  249 Reading DATES    in DROGON.DATA line 677
+  250 Reading WCONPROD in DROGON.DATA line 681
+  251 Reading WCONINJE in DROGON.DATA line 689
+  252 Reading DATES    in DROGON.DATA line 697
+  253 Reading DATES    in DROGON.DATA line 703
+  254 Reading DATES    in DROGON.DATA line 709
+  255 Reading DATES    in DROGON.DATA line 715
+  256 Reading DATES    in DROGON.DATA line 721
+  257 Reading DATES    in DROGON.DATA line 727
+  258 Reading WCONPROD in DROGON.DATA line 731
+  259 Reading WCONINJE in DROGON.DATA line 739
+  260 Reading DATES    in DROGON.DATA line 747
+  261 Reading DATES    in DROGON.DATA line 753
+  262 Reading DATES    in DROGON.DATA line 759
+  263 Reading DATES    in DROGON.DATA line 765
+  264 Reading DATES    in DROGON.DATA line 771
+  265 Reading DATES    in DROGON.DATA line 777
+  266 Reading WCONPROD in DROGON.DATA line 781
+  267 Reading WCONINJE in DROGON.DATA line 789
+  268 Reading DATES    in DROGON.DATA line 797
+  269 Reading DATES    in DROGON.DATA line 803
+  270 Reading DATES    in DROGON.DATA line 809
+  271 Reading DATES    in DROGON.DATA line 815
+  272 Reading DATES    in DROGON.DATA line 821
+  273 Reading DATES    in DROGON.DATA line 827
+  274 Reading WCONPROD in DROGON.DATA line 831
+  275 Reading WCONINJE in DROGON.DATA line 839
+  276 Reading DATES    in DROGON.DATA line 847
+  277 Reading DATES    in DROGON.DATA line 853
+  278 Reading DATES    in DROGON.DATA line 859
+  279 Reading DATES    in DROGON.DATA line 865
+  280 Reading DATES    in DROGON.DATA line 871
+  281 Reading DATES    in DROGON.DATA line 877
+  282 Reading WCONPROD in DROGON.DATA line 881
+  283 Reading WCONINJE in DROGON.DATA line 889
+  284 Reading DATES    in DROGON.DATA line 897
+  285 Reading DATES    in DROGON.DATA line 903
+  286 Reading DATES    in DROGON.DATA line 909
+  287 Reading DATES    in DROGON.DATA line 915
+  288 Reading DATES    in DROGON.DATA line 921
+  289 Reading DATES    in DROGON.DATA line 927
+  290 Reading WCONPROD in DROGON.DATA line 931
+  291 Reading WCONINJE in DROGON.DATA line 939
+  292 Reading DATES    in DROGON.DATA line 947
+  293 Reading DATES    in DROGON.DATA line 953
+  294 Reading DATES    in DROGON.DATA line 959
+  295 Reading DATES    in DROGON.DATA line 965
+  296 Reading DATES    in DROGON.DATA line 971
+  297 Reading DATES    in DROGON.DATA line 977
+  298 Reading WCONPROD in DROGON.DATA line 981
+  299 Reading WCONINJE in DROGON.DATA line 989
+  300 Reading DATES    in DROGON.DATA line 997
+  301 Reading DATES    in DROGON.DATA line 1003
+  302 Reading DATES    in DROGON.DATA line 1009
+  303 Reading DATES    in DROGON.DATA line 1015
+  304 Reading DATES    in DROGON.DATA line 1021
+  305 Reading DATES    in DROGON.DATA line 1027
+
+Warning: Unsupported keywords or keyword items:
+
+  NOINSPEC: keyword not supported
+  In file: DROGON.DATA, line 96
+
+  NORSSPEC: keyword not supported
+  In file: DROGON.DATA, line 99
+
+  MESSAGES: invalid value '1000000' for item 9
+  In file: DROGON.DATA, line 105
+  MESSAGES(STOPWARN): option is not supported
+
+  MESSAGES: invalid value '7000' for item 10
+  In file: DROGON.DATA, line 105
+  MESSAGES(STOPPROB): option is not supported
+
+  MESSAGES: invalid value '0' for item 11
+  In file: DROGON.DATA, line 105
+  MESSAGES(STOPERRS): option is not supported
+
+  NOECHO: keyword not supported
+  In file: DROGON.DATA, line 114
+
+  EXTRAPMS: keyword not supported
+  In file: DROGON.DATA, line 183
+
+Creating corner-point grid from keywords COORD, ZCORN and others
+3 fluid phases are active
+
+Loading faults from FAULTS in /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/grid/drogon.faults line 17
+
+Processing dynamic information from
+DROGON.DATA line 279
+This is a restarted run - skipping until report step 82 at 2020-07-01
+Initializing report step 0/137 at 2018-01-01 0 DAYS line 279
+Adding group RFT from restart file
+Adding group OP from restart file
+Adding group WI from restart file
+Adding group FIELD from restart file
+Adding well R_A2 from restart file
+Adding well R_A3 from restart file
+Adding well R_A4 from restart file
+Adding well R_A5 from restart file
+Adding well R_A6 from restart file
+Adding well A1 from restart file
+Adding well A2 from restart file
+Adding well A5 from restart file
+Adding well A3 from restart file
+Adding well A4 from restart file
+Adding well A6 from restart file
+
+Processing dynamic information from
+DROGON.DATA line 279
+Initializing report step 82/137 at 2018-01-01 912 DAYS line 279
+Processing keyword VFPINJ at line 282
+Processing keyword WELSPECS at line 304
+Processing keyword COMPORD at line 309
+Processing keyword COMPDAT at line 313
+Processing keyword WELSEGS at line 357
+Processing keyword WSEGVALV at line 455
+Processing keyword COMPSEGS at line 501
+Processing keyword GCONPROD at line 544
+Processing keyword WCONPROD at line 548
+Processing keyword WCONINJE at line 557
+Processing keyword TUNING at line 563
+Processing keyword RPTRST at line 572
+Complete report step 83 (1 DAYS) at 2020-07-02 (912 DAYS)
+
+Initializing report step 84/137 at 2020-07-02 (912 DAYS) line 577
+Processing keyword WCONPROD at line 581
+Processing keyword WCONINJE at line 589
+Complete report step 84 (30 DAYS) at 2020-08-01 (913 DAYS)
+
+Initializing report step 85/137 at 2020-08-01 (913 DAYS) line 597
+Complete report step 85 (31 DAYS) at 2020-09-01 (943 DAYS)
+
+Initializing report step 86/137 at 2020-09-01 (943 DAYS) line 603
+Complete report step 86 (30 DAYS) at 2020-10-01 (974 DAYS)
+
+Initializing report step 87/137 at 2020-10-01 (974 DAYS) line 609
+Complete report step 87 (31 DAYS) at 2020-11-01 (1004 DAYS)
+Report limit reached, see PRT-file for remaining Schedule initialization.
+
+Initializing report step 88/137 at 2020-11-01 (1004 DAYS) line 615
+Complete report step 88 (30 DAYS) at 2020-12-01 (1035 DAYS)
+
+Initializing report step 89/137 at 2020-12-01 (1035 DAYS) line 621
+Complete report step 89 (31 DAYS) at 2021-01-01 (1065 DAYS)
+
+Initializing report step 90/137 at 2021-01-01 (1065 DAYS) line 627
+Processing keyword WCONPROD at line 631
+Processing keyword WCONINJE at line 639
+Complete report step 90 (31 DAYS) at 2021-02-01 (1096 DAYS)
+
+Initializing report step 91/137 at 2021-02-01 (1096 DAYS) line 647
+Complete report step 91 (28 DAYS) at 2021-03-01 (1127 DAYS)
+
+Initializing report step 92/137 at 2021-03-01 (1127 DAYS) line 653
+Complete report step 92 (31 DAYS) at 2021-04-01 (1155 DAYS)
+
+Initializing report step 93/137 at 2021-04-01 (1155 DAYS) line 659
+Complete report step 93 (30 DAYS) at 2021-05-01 (1186 DAYS)
+
+Initializing report step 94/137 at 2021-05-01 (1186 DAYS) line 665
+Complete report step 94 (31 DAYS) at 2021-06-01 (1216 DAYS)
+
+Initializing report step 95/137 at 2021-06-01 (1216 DAYS) line 671
+Complete report step 95 (30 DAYS) at 2021-07-01 (1247 DAYS)
+
+Initializing report step 96/137 at 2021-07-01 (1247 DAYS) line 677
+Processing keyword WCONPROD at line 681
+Processing keyword WCONINJE at line 689
+Complete report step 96 (31 DAYS) at 2021-08-01 (1277 DAYS)
+
+Initializing report step 97/137 at 2021-08-01 (1277 DAYS) line 697
+Complete report step 97 (31 DAYS) at 2021-09-01 (1308 DAYS)
+
+Initializing report step 98/137 at 2021-09-01 (1308 DAYS) line 703
+Complete report step 98 (30 DAYS) at 2021-10-01 (1339 DAYS)
+
+Initializing report step 99/137 at 2021-10-01 (1339 DAYS) line 709
+Complete report step 99 (31 DAYS) at 2021-11-01 (1369 DAYS)
+
+Initializing report step 100/137 at 2021-11-01 (1369 DAYS) line 715
+Complete report step 100 (30 DAYS) at 2021-12-01 (1400 DAYS)
+
+Initializing report step 101/137 at 2021-12-01 (1400 DAYS) line 721
+Complete report step 101 (31 DAYS) at 2022-01-01 (1430 DAYS)
+
+Initializing report step 102/137 at 2022-01-01 (1430 DAYS) line 727
+Processing keyword WCONPROD at line 731
+Processing keyword WCONINJE at line 739
+Complete report step 102 (31 DAYS) at 2022-02-01 (1461 DAYS)
+
+Initializing report step 103/137 at 2022-02-01 (1461 DAYS) line 747
+Complete report step 103 (28 DAYS) at 2022-03-01 (1492 DAYS)
+
+Initializing report step 104/137 at 2022-03-01 (1492 DAYS) line 753
+Complete report step 104 (31 DAYS) at 2022-04-01 (1520 DAYS)
+
+Initializing report step 105/137 at 2022-04-01 (1520 DAYS) line 759
+Complete report step 105 (30 DAYS) at 2022-05-01 (1551 DAYS)
+
+Initializing report step 106/137 at 2022-05-01 (1551 DAYS) line 765
+Complete report step 106 (31 DAYS) at 2022-06-01 (1581 DAYS)
+
+Initializing report step 107/137 at 2022-06-01 (1581 DAYS) line 771
+Complete report step 107 (30 DAYS) at 2022-07-01 (1612 DAYS)
+
+Initializing report step 108/137 at 2022-07-01 (1612 DAYS) line 777
+Processing keyword WCONPROD at line 781
+Processing keyword WCONINJE at line 789
+Complete report step 108 (31 DAYS) at 2022-08-01 (1642 DAYS)
+
+Initializing report step 109/137 at 2022-08-01 (1642 DAYS) line 797
+Complete report step 109 (31 DAYS) at 2022-09-01 (1673 DAYS)
+
+Initializing report step 110/137 at 2022-09-01 (1673 DAYS) line 803
+Complete report step 110 (30 DAYS) at 2022-10-01 (1704 DAYS)
+
+Initializing report step 111/137 at 2022-10-01 (1704 DAYS) line 809
+Complete report step 111 (31 DAYS) at 2022-11-01 (1734 DAYS)
+
+Initializing report step 112/137 at 2022-11-01 (1734 DAYS) line 815
+Complete report step 112 (30 DAYS) at 2022-12-01 (1765 DAYS)
+
+Initializing report step 113/137 at 2022-12-01 (1765 DAYS) line 821
+Complete report step 113 (31 DAYS) at 2023-01-01 (1795 DAYS)
+
+Initializing report step 114/137 at 2023-01-01 (1795 DAYS) line 827
+Processing keyword WCONPROD at line 831
+Processing keyword WCONINJE at line 839
+Complete report step 114 (31 DAYS) at 2023-02-01 (1826 DAYS)
+
+Initializing report step 115/137 at 2023-02-01 (1826 DAYS) line 847
+Complete report step 115 (28 DAYS) at 2023-03-01 (1857 DAYS)
+
+Initializing report step 116/137 at 2023-03-01 (1857 DAYS) line 853
+Complete report step 116 (31 DAYS) at 2023-04-01 (1885 DAYS)
+
+Initializing report step 117/137 at 2023-04-01 (1885 DAYS) line 859
+Complete report step 117 (30 DAYS) at 2023-05-01 (1916 DAYS)
+
+Initializing report step 118/137 at 2023-05-01 (1916 DAYS) line 865
+Complete report step 118 (31 DAYS) at 2023-06-01 (1946 DAYS)
+
+Initializing report step 119/137 at 2023-06-01 (1946 DAYS) line 871
+Complete report step 119 (30 DAYS) at 2023-07-01 (1977 DAYS)
+
+Initializing report step 120/137 at 2023-07-01 (1977 DAYS) line 877
+Processing keyword WCONPROD at line 881
+Processing keyword WCONINJE at line 889
+Complete report step 120 (31 DAYS) at 2023-08-01 (2007 DAYS)
+
+Initializing report step 121/137 at 2023-08-01 (2007 DAYS) line 897
+Complete report step 121 (31 DAYS) at 2023-09-01 (2038 DAYS)
+
+Initializing report step 122/137 at 2023-09-01 (2038 DAYS) line 903
+Complete report step 122 (30 DAYS) at 2023-10-01 (2069 DAYS)
+
+Initializing report step 123/137 at 2023-10-01 (2069 DAYS) line 909
+Complete report step 123 (31 DAYS) at 2023-11-01 (2099 DAYS)
+
+Initializing report step 124/137 at 2023-11-01 (2099 DAYS) line 915
+Complete report step 124 (30 DAYS) at 2023-12-01 (2130 DAYS)
+
+Initializing report step 125/137 at 2023-12-01 (2130 DAYS) line 921
+Complete report step 125 (31 DAYS) at 2024-01-01 (2160 DAYS)
+
+Initializing report step 126/137 at 2024-01-01 (2160 DAYS) line 927
+Processing keyword WCONPROD at line 931
+Processing keyword WCONINJE at line 939
+Complete report step 126 (31 DAYS) at 2024-02-01 (2191 DAYS)
+
+Initializing report step 127/137 at 2024-02-01 (2191 DAYS) line 947
+Complete report step 127 (29 DAYS) at 2024-03-01 (2222 DAYS)
+
+Initializing report step 128/137 at 2024-03-01 (2222 DAYS) line 953
+Complete report step 128 (31 DAYS) at 2024-04-01 (2251 DAYS)
+
+Initializing report step 129/137 at 2024-04-01 (2251 DAYS) line 959
+Complete report step 129 (30 DAYS) at 2024-05-01 (2282 DAYS)
+
+Initializing report step 130/137 at 2024-05-01 (2282 DAYS) line 965
+Complete report step 130 (31 DAYS) at 2024-06-01 (2312 DAYS)
+
+Initializing report step 131/137 at 2024-06-01 (2312 DAYS) line 971
+Complete report step 131 (30 DAYS) at 2024-07-01 (2343 DAYS)
+
+Initializing report step 132/137 at 2024-07-01 (2343 DAYS) line 977
+Processing keyword WCONPROD at line 981
+Processing keyword WCONINJE at line 989
+Complete report step 132 (31 DAYS) at 2024-08-01 (2373 DAYS)
+
+Initializing report step 133/137 at 2024-08-01 (2373 DAYS) line 997
+Complete report step 133 (31 DAYS) at 2024-09-01 (2404 DAYS)
+
+Initializing report step 134/137 at 2024-09-01 (2404 DAYS) line 1003
+Complete report step 134 (30 DAYS) at 2024-10-01 (2435 DAYS)
+
+Initializing report step 135/137 at 2024-10-01 (2435 DAYS) line 1009
+Complete report step 135 (31 DAYS) at 2024-11-01 (2465 DAYS)
+
+Initializing report step 136/137 at 2024-11-01 (2465 DAYS) line 1015
+Complete report step 136 (30 DAYS) at 2024-12-01 (2496 DAYS)
+
+Initializing report step 137/137 at 2024-12-01 (2496 DAYS) line 1021
+Complete report step 137 (31 DAYS) at 2025-01-01 (2526 DAYS)
+
+
+Warning: Request for missing group GMWIN in GMWPR
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 110
+
+Processing grid
+2229 pinch-out connections generated
+Total number of active cells: 71575 / total pore volume: 528076537 RM3
+Removed 23 cells with a pore volume of 0 RM3 (0.000 %) due to MINPV/MINPVV
+
+Property tree for linear solvers:
+{
+    "maxiter": "20",
+    "tol": "0.0050000000000000001",
+    "verbosity": "0",
+    "solver": "bicgstab",
+    "preconditioner": {
+        "type": "cprw",
+        "use_well_weights": "false",
+        "add_wells": "true",
+        "weight_type": "trueimpes",
+        "pre_smooth": "0",
+        "post_smooth": "1",
+        "finesmoother": {
+            "type": "paroverilu0",
+            "relaxation": "1"
+        },
+        "verbosity": "0",
+        "coarsesolver": {
+            "maxiter": "1",
+            "tol": "0.10000000000000001",
+            "solver": "loopsolver",
+            "verbosity": "0",
+            "preconditioner": {
+                "type": "amg",
+                "alpha": "0.33333333333300003",
+                "relaxation": "1",
+                "iterations": "1",
+                "coarsenTarget": "1200",
+                "pre_smooth": "1",
+                "post_smooth": "1",
+                "beta": "0",
+                "smoother": "ilu0",
+                "verbosity": "0",
+                "maxlevel": "15",
+                "skip_isolated": "0",
+                "accumulate": "1",
+                "prolongationdamping": "1",
+                "maxdistance": "2",
+                "maxconnectivity": "15",
+                "maxaggsize": "6",
+                "minaggsize": "4"
+            }
+        }
+    }
+}
+
+
+Warning: Unhandled summary keyword FWGR
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 80
+
+Warning: Unhandled summary keyword ROE
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 88
+
+Warning: Unhandled summary keyword GWGR
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 147
+
+Warning: Unhandled summary keyword WOGLR
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 276
+
+Warning: Unhandled summary keyword WTPRWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 282
+
+Warning: Unhandled summary keyword WTPRWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 284
+
+Warning: Unhandled summary keyword WTPTWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 287
+
+Warning: Unhandled summary keyword WTPTWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 289
+
+Warning: Unhandled summary keyword WTPCWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 292
+
+Warning: Unhandled summary keyword WTPCWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 294
+
+Warning: Unhandled summary keyword WTIRWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 297
+
+Warning: Unhandled summary keyword WTIRWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 299
+
+Warning: Unhandled summary keyword WTITWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 302
+
+Warning: Unhandled summary keyword WTITWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 304
+
+Warning: Unhandled summary keyword WTICWT1
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 307
+
+Warning: Unhandled summary keyword WTICWT2
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/summary/drogon.summary line 309
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,1) -> (27,37,16)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,1) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,1) -> (27,37,16)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,38,1) -> (27,38,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,27,2) -> (28,27,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,2) -> (27,37,16)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,2) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,2) -> (27,37,16)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,2) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,38,2) -> (27,38,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,3) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,3) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,4) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,4) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,36,5) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (26,37,5) -> (27,37,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (36,68,6) -> (37,68,11)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (36,68,7) -> (37,68,11)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (36,68,8) -> (37,68,11)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (36,68,9) -> (37,68,11)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (33,16,10) -> (33,17,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,10) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,10) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (36,68,10) -> (37,68,11)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (33,16,11) -> (33,17,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,11) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,11) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (33,16,12) -> (33,17,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,12) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,12) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (33,16,13) -> (33,17,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (32,17,13) -> (33,17,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,13) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,13) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (22,44,14) -> (23,44,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,14) -> (24,46,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (22,44,15) -> (23,44,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (22,44,16) -> (23,44,17)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (27,44,16) -> (28,44,31)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (16,32,17) -> (15,32,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (22,44,17) -> (22,43,18)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (23,45,28)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (24,46,28)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (23,45,29)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (24,46,29)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (23,45,30)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (24,46,30)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (23,46,17) -> (23,45,31)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,17) -> (24,46,28)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,17) -> (24,46,29)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (24,47,17) -> (24,46,30)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (16,32,18) -> (15,32,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (15,33,18) -> (15,32,19)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (22,44,18) -> (22,43,27)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (17,31,19) -> (16,31,30)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (17,31,19) -> (16,31,31)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (16,32,19) -> (16,31,28)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (16,32,19) -> (16,31,29)
+
+Warning: Problem with EDITNNC keyword
+In /home/AD.NORCERESEARCH.NO/mani/closed_loop/include/edit/drogon.trans line 381 
+No NNC defined for connection (16,32,19) -> (16,31,30)
+
+Warning: Problems with EDITNNC keyword
+A total of 59 connections not defined in grid
+
+The deck has TUNING in the SCHEDULE section, but it is ignored due
+to the flag --enable-tuning=false. Set this flag to true to activate it.
+Manually tuning the simulator with the TUNING keyword may increase run time.
+It is recommended using the simulator's default tuning (--enable-tuning=false).
+
+
+================ Starting main simulation loop ===============
+
+
+Report step 82/137 at day 912/2557, date = 01-Jul-2020
+Using Newton nonlinear solver.
+
+Starting time step 0, stepsize 1 days, at day 912/913, date = 01-Jul-2020
+    Well A1 control mode changed from GRUP to ORAT
+    Well A2 control mode changed from GRUP to BHP
+    Well A3 control mode changed from GRUP to BHP
+    Well A4 control mode changed from GRUP to ORAT
+    Well OP5 control mode changed from GRUP to ORAT
+ Newton its= 3, linearizations= 4 (0.6sec), linear its=  3 (0.8sec)
+
+
+Report step 83/137 at day 913/2557, date = 02-Jul-2020
+Restart file written for report step  83/137, date = 02-Jul-2020 00:00:00
+
+Starting time step 0, stepsize 3 days, at day 913/943, date = 02-Jul-2020
+    Well A2 control mode changed from ORAT to BHP
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  2 (0.4sec)
+
+Starting time step 1, stepsize 9 days, at day 916/943, date = 05-Jul-2020
+ Newton its= 3, linearizations= 4 (0.4sec), linear its=  7 (0.9sec)
+
+Starting time step 2, stepsize 18 days, at day 925/943, date = 14-Jul-2020
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  5 (0.6sec)
+
+
+Report step 84/137 at day 943/2557, date = 01-Aug-2020
+Restart file written for report step  84/137, date = 01-Aug-2020 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 943/974, date = 01-Aug-2020
+    Well A3 control mode changed from ORAT to BHP
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  8 (0.9sec)
+
+
+Report step 85/137 at day 974/2557, date = 01-Sep-2020
+Restart file written for report step  85/137, date = 01-Sep-2020 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 974/1004, date = 01-Sep-2020
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  6 (0.8sec)
+
+
+Report step 86/137 at day 1004/2557, date = 01-Oct-2020
+Restart file written for report step  86/137, date = 01-Oct-2020 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1004/1035, date = 01-Oct-2020
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  7 (0.9sec)
+
+
+Report step 87/137 at day 1035/2557, date = 01-Nov-2020
+Restart file written for report step  87/137, date = 01-Nov-2020 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1035/1065, date = 01-Nov-2020
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  8 (0.9sec)
+
+
+Report step 88/137 at day 1065/2557, date = 01-Dec-2020
+
+Starting time step 0, stepsize 31 days, at day 1065/1096, date = 01-Dec-2020
+Restart file written for report step  88/137, date = 01-Dec-2020 00:00:00
+    Well A1 control mode changed from ORAT to WRAT
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  6 (0.7sec)
+
+
+Report step 89/137 at day 1096/2557, date = 01-Jan-2021
+Restart file written for report step  89/137, date = 01-Jan-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1096/1127, date = 01-Jan-2021
+    Well A1 control mode changed from ORAT to WRAT
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  6 (0.8sec)
+
+
+Report step 90/137 at day 1127/2557, date = 01-Feb-2021
+Restart file written for report step  90/137, date = 01-Feb-2021 00:00:00
+
+Starting time step 0, stepsize 28 days, at day 1127/1155, date = 01-Feb-2021
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  7 (0.8sec)
+
+
+Report step 91/137 at day 1155/2557, date = 01-Mar-2021
+Restart file written for report step  91/137, date = 01-Mar-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1155/1186, date = 01-Mar-2021
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  5 (0.9sec)
+
+
+Report step 92/137 at day 1186/2557, date = 01-Apr-2021
+Restart file written for report step  92/137, date = 01-Apr-2021 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1186/1216, date = 01-Apr-2021
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  4 (0.5sec)
+
+
+Report step 93/137 at day 1216/2557, date = 01-May-2021
+Restart file written for report step  93/137, date = 01-May-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1216/1247, date = 01-May-2021
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  4 (0.5sec)
+
+
+Report step 94/137 at day 1247/2557, date = 01-Jun-2021
+Restart file written for report step  94/137, date = 01-Jun-2021 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1247/1277, date = 01-Jun-2021
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  7 (1.0sec)
+
+
+Report step 95/137 at day 1277/2557, date = 01-Jul-2021
+Restart file written for report step  95/137, date = 01-Jul-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1277/1308, date = 01-Jul-2021
+    Well A1 control mode changed from ORAT to WRAT
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  5 (0.7sec)
+
+
+Report step 96/137 at day 1308/2557, date = 01-Aug-2021
+Restart file written for report step  96/137, date = 01-Aug-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1308/1339, date = 01-Aug-2021
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  5 (0.6sec)
+
+
+Report step 97/137 at day 1339/2557, date = 01-Sep-2021
+Restart file written for report step  97/137, date = 01-Sep-2021 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1339/1369, date = 01-Sep-2021
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  4 (0.5sec)
+
+
+Report step 98/137 at day 1369/2557, date = 01-Oct-2021
+Restart file written for report step  98/137, date = 01-Oct-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1369/1400, date = 01-Oct-2021
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  4 (0.6sec)
+
+
+Report step 99/137 at day 1400/2557, date = 01-Nov-2021
+Restart file written for report step  99/137, date = 01-Nov-2021 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1400/1430, date = 01-Nov-2021
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  5 (0.7sec)
+
+
+Report step 100/137 at day 1430/2557, date = 01-Dec-2021
+Restart file written for report step 100/137, date = 01-Dec-2021 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1430/1461, date = 01-Dec-2021
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  5 (0.8sec)
+
+
+Report step 101/137 at day 1461/2557, date = 01-Jan-2022
+Restart file written for report step 101/137, date = 01-Jan-2022 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1461/1492, date = 01-Jan-2022
+    Well A1 control mode changed from ORAT to WRAT
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  5 (0.7sec)
+
+
+Report step 102/137 at day 1492/2557, date = 01-Feb-2022
+Restart file written for report step 102/137, date = 01-Feb-2022 00:00:00
+
+Starting time step 0, stepsize 28 days, at day 1492/1520, date = 01-Feb-2022
+    Oscillating behavior detected: Relaxation set to 0.900000
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  6 (1.0sec)
+
+
+Report step 103/137 at day 1520/2557, date = 01-Mar-2022
+
+Starting time step 0, stepsize 31 days, at day 1520/1551, date = 01-Mar-2022
+Restart file written for report step 103/137, date = 01-Mar-2022 00:00:00
+ Newton its= 2, linearizations= 3 (0.2sec), linear its=  5 (0.6sec)
+
+
+Report step 104/137 at day 1551/2557, date = 01-Apr-2022
+Restart file written for report step 104/137, date = 01-Apr-2022 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1551/1581, date = 01-Apr-2022
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  7 (1.0sec)
+
+
+Report step 105/137 at day 1581/2557, date = 01-May-2022
+Restart file written for report step 105/137, date = 01-May-2022 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1581/1612, date = 01-May-2022
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  7 (0.9sec)
+
+
+Report step 106/137 at day 1612/2557, date = 01-Jun-2022
+Restart file written for report step 106/137, date = 01-Jun-2022 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1612/1642, date = 01-Jun-2022
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  4 (0.8sec)
+
+
+Report step 107/137 at day 1642/2557, date = 01-Jul-2022
+Restart file written for report step 107/137, date = 01-Jul-2022 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1642/1673, date = 01-Jul-2022
+    Well A1 control mode changed from ORAT to WRAT
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+    Well A4 control mode changed from ORAT to WRAT
+ Newton its= 8, linearizations= 9 (0.7sec), linear its= 13 (2.0sec)
+
+
+Report step 108/137 at day 1673/2557, date = 01-Aug-2022
+Restart file written for report step 108/137, date = 01-Aug-2022 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1673/1704, date = 01-Aug-2022
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  8 (1.2sec)
+
+
+Report step 109/137 at day 1704/2557, date = 01-Sep-2022
+
+Starting time step 0, stepsize 30 days, at day 1704/1734, date = 01-Sep-2022
+Restart file written for report step 109/137, date = 01-Sep-2022 00:00:00
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  6 (1.2sec)
+
+
+Report step 110/137 at day 1734/2557, date = 01-Oct-2022
+
+Starting time step 0, stepsize 31 days, at day 1734/1765, date = 01-Oct-2022
+Restart file written for report step 110/137, date = 01-Oct-2022 00:00:00
+    Well OP5 control mode changed from ORAT to WRAT
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  9 (1.2sec)
+
+
+Report step 111/137 at day 1765/2557, date = 01-Nov-2022
+
+Starting time step 0, stepsize 30 days, at day 1765/1795, date = 01-Nov-2022
+Restart file written for report step 111/137, date = 01-Nov-2022 00:00:00
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  4 (0.9sec)
+
+
+Report step 112/137 at day 1795/2557, date = 01-Dec-2022
+Restart file written for report step 112/137, date = 01-Dec-2022 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1795/1826, date = 01-Dec-2022
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  3 (0.6sec)
+
+
+Report step 113/137 at day 1826/2557, date = 01-Jan-2023
+Restart file written for report step 113/137, date = 01-Jan-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1826/1857, date = 01-Jan-2023
+    Well A1 control mode changed from ORAT to WRAT
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+    Well A4 control mode changed from ORAT to WRAT
+    Well OP5 control mode changed from ORAT to WRAT
+ Newton its= 7, linearizations= 8 (0.6sec), linear its=  8 (1.4sec)
+
+
+Report step 114/137 at day 1857/2557, date = 01-Feb-2023
+
+Starting time step 0, stepsize 28 days, at day 1857/1885, date = 01-Feb-2023
+Restart file written for report step 114/137, date = 01-Feb-2023 00:00:00
+    Well A1 control mode changed from WRAT to BHP
+ Newton its= 7, linearizations= 8 (0.7sec), linear its=  6 (1.5sec)
+
+
+Report step 115/137 at day 1885/2557, date = 01-Mar-2023
+Restart file written for report step 115/137, date = 01-Mar-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1885/1916, date = 01-Mar-2023
+    Well OP5 control mode changed from WRAT to BHP
+ Newton its= 9, linearizations=10 (0.8sec), linear its=  6 (1.6sec)
+
+
+Report step 116/137 at day 1916/2557, date = 01-Apr-2023
+Restart file written for report step 116/137, date = 01-Apr-2023 00:00:00
+
+Starting time step 0, stepsize 15 days, at day 1916/1946, date = 01-Apr-2023
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  5 (0.7sec)
+
+Starting time step 1, stepsize 15 days, at day 1931/1946, date = 16-Apr-2023
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  3 (0.7sec)
+
+
+Report step 117/137 at day 1946/2557, date = 01-May-2023
+Restart file written for report step 117/137, date = 01-May-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 1946/1977, date = 01-May-2023
+ Newton its= 6, linearizations= 7 (0.5sec), linear its=  6 (1.2sec)
+
+
+Report step 118/137 at day 1977/2557, date = 01-Jun-2023
+Restart file written for report step 118/137, date = 01-Jun-2023 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 1977/2007, date = 01-Jun-2023
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  5 (1.0sec)
+
+
+Report step 119/137 at day 2007/2557, date = 01-Jul-2023
+Restart file written for report step 119/137, date = 01-Jul-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2007/2038, date = 01-Jul-2023
+    Well A1 control mode changed from ORAT to BHP
+    Well A2 control mode changed from ORAT to BHP
+    Well A4 control mode changed from ORAT to WRAT
+    Well OP5 control mode changed from ORAT to BHP
+ Newton its= 6, linearizations= 7 (0.6sec), linear its=  6 (1.4sec)
+
+
+Report step 120/137 at day 2038/2557, date = 01-Aug-2023
+
+Starting time step 0, stepsize 31 days, at day 2038/2069, date = 01-Aug-2023
+Restart file written for report step 120/137, date = 01-Aug-2023 00:00:00
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  6 (1.0sec)
+
+
+Report step 121/137 at day 2069/2557, date = 01-Sep-2023
+Restart file written for report step 121/137, date = 01-Sep-2023 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 2069/2099, date = 01-Sep-2023
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  4 (0.9sec)
+
+
+Report step 122/137 at day 2099/2557, date = 01-Oct-2023
+Restart file written for report step 122/137, date = 01-Oct-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2099/2130, date = 01-Oct-2023
+    Well A4 control mode changed from WRAT to BHP
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  8 (1.2sec)
+
+
+Report step 123/137 at day 2130/2557, date = 01-Nov-2023
+Restart file written for report step 123/137, date = 01-Nov-2023 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 2130/2160, date = 01-Nov-2023
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  3 (0.6sec)
+
+
+Report step 124/137 at day 2160/2557, date = 01-Dec-2023
+Restart file written for report step 124/137, date = 01-Dec-2023 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2160/2191, date = 01-Dec-2023
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  6 (0.9sec)
+
+
+Report step 125/137 at day 2191/2557, date = 01-Jan-2024
+Restart file written for report step 125/137, date = 01-Jan-2024 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2191/2222, date = 01-Jan-2024
+    Well A1 control mode changed from ORAT to BHP
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+    Well A4 control mode changed from ORAT to BHP
+    Well OP5 control mode changed from ORAT to BHP
+ Newton its= 5, linearizations= 6 (0.5sec), linear its=  6 (1.3sec)
+
+
+Report step 126/137 at day 2222/2557, date = 01-Feb-2024
+Restart file written for report step 126/137, date = 01-Feb-2024 00:00:00
+
+Starting time step 0, stepsize 29 days, at day 2222/2251, date = 01-Feb-2024
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  4 (0.8sec)
+
+
+Report step 127/137 at day 2251/2557, date = 01-Mar-2024
+Restart file written for report step 127/137, date = 01-Mar-2024 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2251/2282, date = 01-Mar-2024
+ Newton its= 6, linearizations= 7 (0.5sec), linear its=  6 (1.2sec)
+
+
+Report step 128/137 at day 2282/2557, date = 01-Apr-2024
+Restart file written for report step 128/137, date = 01-Apr-2024 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 2282/2312, date = 01-Apr-2024
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  5 (0.9sec)
+
+
+Report step 129/137 at day 2312/2557, date = 01-May-2024
+Restart file written for report step 129/137, date = 01-May-2024 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2312/2343, date = 01-May-2024
+    Oscillating behavior detected: Relaxation set to 0.900000
+ Newton its= 6, linearizations= 7 (0.6sec), linear its=  4 (1.1sec)
+
+
+Report step 130/137 at day 2343/2557, date = 01-Jun-2024
+
+Starting time step 0, stepsize 30 days, at day 2343/2373, date = 01-Jun-2024
+Restart file written for report step 130/137, date = 01-Jun-2024 00:00:00
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  6 (1.0sec)
+
+
+Report step 131/137 at day 2373/2557, date = 01-Jul-2024
+
+Starting time step 0, stepsize 31 days, at day 2373/2404, date = 01-Jul-2024
+Restart file written for report step 131/137, date = 01-Jul-2024 00:00:00
+    Well A1 control mode changed from ORAT to BHP
+    Well A2 control mode changed from ORAT to BHP
+    Well A3 control mode changed from ORAT to BHP
+    Well A4 control mode changed from ORAT to BHP
+    Well OP5 control mode changed from ORAT to BHP
+ Newton its= 7, linearizations= 8 (0.7sec), linear its=  7 (1.6sec)
+
+
+Report step 132/137 at day 2404/2557, date = 01-Aug-2024
+
+Starting time step 0, stepsize 31 days, at day 2404/2435, date = 01-Aug-2024
+Restart file written for report step 132/137, date = 01-Aug-2024 00:00:00
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  3 (0.6sec)
+
+
+Report step 133/137 at day 2435/2557, date = 01-Sep-2024
+
+Starting time step 0, stepsize 30 days, at day 2435/2465, date = 01-Sep-2024
+Restart file written for report step 133/137, date = 01-Sep-2024 00:00:00
+ Newton its= 2, linearizations= 3 (0.3sec), linear its=  5 (0.6sec)
+
+
+Report step 134/137 at day 2465/2557, date = 01-Oct-2024
+Restart file written for report step 134/137, date = 01-Oct-2024 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2465/2496, date = 01-Oct-2024
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  3 (0.6sec)
+
+
+Report step 135/137 at day 2496/2557, date = 01-Nov-2024
+Restart file written for report step 135/137, date = 01-Nov-2024 00:00:00
+
+Starting time step 0, stepsize 30 days, at day 2496/2526, date = 01-Nov-2024
+ Newton its= 4, linearizations= 5 (0.4sec), linear its=  7 (1.0sec)
+
+
+Report step 136/137 at day 2526/2557, date = 01-Dec-2024
+Restart file written for report step 136/137, date = 01-Dec-2024 00:00:00
+
+Starting time step 0, stepsize 31 days, at day 2526/2557, date = 01-Dec-2024
+ Newton its= 3, linearizations= 4 (0.3sec), linear its=  4 (0.7sec)
+
+Restart file written for report step 137/137, date = 01-Jan-2025 00:00:00
+
+
+================    End of simulation     ===============
+
+Number of MPI processes:         1
+Threads per MPI process:         2
+Setup time:                      2.28 s
+  Deck input:                    0.96 s
+Number of timesteps:            58
+Simulation time:                93.28 s
+  Assembly time:                23.17 s (Wasted: 0.0 s; 0.0%)
+    Well assembly:               1.46 s (Wasted: 0.0 s; 0.0%)
+  Linear solve time:            52.88 s (Wasted: 0.0 s; 0.0%)
+    Linear setup:               21.05 s (Wasted: 0.0 s; 0.0%)
+  Props/update time:             9.62 s (Wasted: 0.0 s; 0.0%)
+  Pre/post step:                 6.26 s (Wasted: 0.0 s; 0.0%)
+  Output write time:             0.11 s
+Overall Linearizations:        285      (Wasted:     0; 0.0%)
+Overall Newton Iterations:     227      (Wasted:     0; 0.0%)
+Overall Linear Iterations:     322      (Wasted:     0; 0.0%)
+
+
+
+Error summary:
+Warnings          78
+Info              637
+Errors            0
+Bugs              0
+Debug             0
+Problems          0
+

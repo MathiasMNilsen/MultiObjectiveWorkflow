@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'  # the code uses nested quotes in f-strings, which need 3.12+
+          cache: pip
+
+      - name: Install dependencies
+        env:
+          # PyPI timeouts otherwise make pip backtrack to ancient sdists (e.g. matplotlib) that fail to build
+          PIP_DEFAULT_TIMEOUT: '60'
+          PIP_RETRIES: '10'
+          PIP_ONLY_BINARY: matplotlib
+        run: |
+          python -m pip install --upgrade pip
+          # PET (popt) and SimulatorWrap (subsurface) are not on PyPI. Pinned to commits that still have
+          # popt.loop / popt.update_schemes (restructured in PET #166); bump these when the code is ported.
+          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/PET.git@ab0293cb0738e49d8fcf3bb22776c6d8b810d2b6"
+          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/SimulatorWrap.git@30c240862529248085a45f44235967bfaf9ab9a0"
+          python -m pip install -e ".[analysis,dev]"
+
+      - name: Run tests
+        run: python -m pytest

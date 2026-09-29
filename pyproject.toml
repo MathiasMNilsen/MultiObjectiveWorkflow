@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multiobjectiveworkflow"
+version = "0.1.0"
+description = "Multi-objective optimization workflow for Drogon studies"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+analysis = [
+    "matplotlib>=3.7",
+    "pandas>=2.0",
+    "PyYAML>=6.0",
+    "python-dateutil>=2.8",
+]
+dev = [
+    "pytest>=7.4",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["multi_objective_optimization*", "facility*", "closed_loop*"]
+namespaces = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"
+
