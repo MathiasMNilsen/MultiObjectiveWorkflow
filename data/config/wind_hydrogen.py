@@ -1,4 +1,4 @@
-"""Static Python config mirrored from wind-hydrogen_ecmor26/config.yaml."""
+"""Static Python config for the wind + hydrogen case (examples/run-wind_hydrogen.py)."""
 
 import datetime as dt
 
@@ -15,6 +15,7 @@ def _monthly_reportpoints(start: dt.datetime, end: dt.datetime):
             current = current.replace(month=current.month + 1)
     return points
 
+
 kwopt = {
     'maxiter': 30,
     'main_method': 'EnOpt',
@@ -23,7 +24,7 @@ kwopt = {
     'lsmethod': 0,
     'lsmaxiter': 5,
     'alpha': 0.15,
-    'ftol': 0.01,
+    'ftol': 0.0,  # earlier PET's EnOpt ignored ftol (no stop on relative change); 0 keeps it that way
     'resample': 5,
     'normalize': True,
     'epf': {
@@ -33,7 +34,6 @@ kwopt = {
         'tol_factor': 0.5,
         'conv_crit': 1.0e-9,
     },
-    'savedata': ['epf'],
     'save_folder': '',
     'obj_scaling': 2845473526.0,
 }
@@ -67,7 +67,7 @@ kwsim = {
 
 kwens = {
     'ne': 50,
-    'transform': True,
+    'transform': True,  # optimize the controls scaled to the unit cube (done in pareto.py)
     'num_models': 50,
     'state': ['RATE_A1', 'RATE_A2', 'RATE_A3', 'RATE_A4', 'RATE_OP5', 'RATE_A5', 'RATE_A6', 'N_WT', 'N_H2'],
     'prior_RATE_A1': {

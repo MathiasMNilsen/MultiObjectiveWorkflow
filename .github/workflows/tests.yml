@@ -14,7 +14,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'  # the code uses nested quotes in f-strings, which need 3.12+
+          python-version: '3.12'
           cache: pip
 
       - name: Install dependencies
@@ -25,10 +25,10 @@ jobs:
           PIP_ONLY_BINARY: matplotlib
         run: |
           python -m pip install --upgrade pip
-          # PET (popt) and SimulatorWrap (subsurface) are not on PyPI. Pinned to commits that still have
-          # popt.loop / popt.update_schemes (restructured in PET #166); bump these when the code is ported.
-          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/PET.git@ab0293cb0738e49d8fcf3bb22776c6d8b810d2b6"
-          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/SimulatorWrap.git@30c240862529248085a45f44235967bfaf9ab9a0"
+          # PET (popt) and SimulatorWrap (subsurface) are not on PyPI. Pinned to the commits the code was
+          # ported to (popt.optimization_methods / popt.ensembles API).
+          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/PET.git@0a46451eca60d80ef50e96281274eedb623cf9f0"
+          python -m pip install "git+https://github.com/Python-Ensemble-Toolbox/SimulatorWrap.git@0fc978cd1467d9fb2c931577baa9941dc6e8fb48"
           python -m pip install -e ".[analysis,dev]"
 
       - name: Run tests

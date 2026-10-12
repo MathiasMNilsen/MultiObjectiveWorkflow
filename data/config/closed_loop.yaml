@@ -1,0 +1,42 @@
+# Settings of the closed-loop workflow. Relative paths are relative to this file.
+# The values reproduce the setup of the ECMOR 2026 paper, except the robust optimization
+# (demand_error_std > 0). Set demand_error_std to 0 for the paper's deterministic formulation.
+
+start_date: 2020-07-03                 # first report date of the loop
+end_date: 2025-01-01                   # the loop ends the day before
+interval_length: 15                    # days per control interval
+target_controls: ../closed_loop/target_controls.csv  # monthly target rates from the life-cycle optimization (columns Rate<well>)
+windpower: ../closed_loop/windpower.npy  # available wind power per day [MW]; the first value belongs to start_date
+output_dir: ../../outputs/closed_loop  # must not exist yet
+seed: 1112018
+
+wells:                                 # upper bounds of the rates [Sm3/day]; the lower bounds are zero
+  producers: {A1: 3000, A2: 4000, A3: 4000, A4: 4000, OP5: 3000}   # oil production rate
+  injectors: {A5: 8000, A6: 8000}                                   # water injection rate
+
+simulator:
+  deck: ../closed_loop/DROGON_workflow.mako  # Mako template of the OPM Flow deck
+  model_dir: ../drogon_ensemble       # folder with the include/ and Drogon_Mean/ data read by the deck
+  history_case: ../drogon_ensemble/Drogon_Mean/DROGON  # history run whose restart file starts the loop
+  restart_step: 82                     # report step of that restart file (1 Jul 2020)
+  flow: flow                           # OPM Flow command, options may be added
+  n_parallel: 50                       # simulations run at the same time
+
+proxy:
+  n_samples: 250                       # control strategies simulated to train the proxy
+  sample_std: 0.1                      # standard deviation of the samples as a fraction of the control range
+  validation_fraction: 0.1             # share of the samples used to select the kernel of each well
+
+optimization:
+  tolerance: 0.001                     # allowed relative deviation from the target volumes (epsilon in Eq. 6)
+  demand_error_std: 0.05               # [MW] daily power-demand error the emissions are made robust to; 0 = Eq. 6
+  demand_scenarios: 100                # equally likely error scenarios the emissions are averaged over
+  max_iter: 10000                      # maximum number of COBYLA function evaluations
+  rhobeg: 0.05                         # initial COBYLA step in scaled controls
+
+economics:                             # Table 1 of the paper
+  oil_price: 472.0                     # USD/Sm3
+  gas_price: 0.4                       # USD/Sm3 of exported gas
+  water_injection_cost: 25.0           # USD/Sm3
+  water_production_cost: 37.0          # USD/Sm3
+  co2_tax: 150.0                       # USD/ton

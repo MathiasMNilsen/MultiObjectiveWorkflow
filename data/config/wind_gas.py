@@ -1,4 +1,4 @@
-"""Static Python config mirrored from wind-gas/config.yaml."""
+"""Static Python config for the wind + gas case (examples/run-wind_gas.py)."""
 
 import datetime as dt
 
@@ -20,6 +20,7 @@ kwopt = {
     'maxiter': 20,
     'method': 'Newton-CG',
     'step_size_adapt': 2,
+    'ftol': 1.0e-4,  # previous PET default (now 1e-5)
     'obj_scaling': [187583, 2845473526],
     'save_folder': '',
 }
@@ -51,7 +52,7 @@ kwsim = {
 
 kwens = {
     'ne': 50,
-    'transform': True,
+    'transform': True,  # optimize the controls scaled to the unit cube (done in pareto.py)
     'num_models': 50,
     'state': ['RATE_A1', 'RATE_A2', 'RATE_A3', 'RATE_A4', 'RATE_OP5', 'RATE_A5', 'RATE_A6'],
     'prior_RATE_A1': {

@@ -62,6 +62,25 @@ In `save_folder` itself:
 - `pareto_curve.png`: mean NPV against CO2 (gas) or CAPEX (hydrogen), one point per weight
 - `wind_power_profiles.png`: sample wind power profiles
 
+## Closed-loop workflow
+
+The `closed_loop` package holds the closed-loop short-term optimization (ECMOR 2026). It needs OPM Flow and the `closed-loop` extra:
+
+```bash
+python -m pip install -e .[closed-loop]
+cd examples
+python run-target_optimization.py   # optional: recompute the target rates (needs PET)
+python run-closed_loop.py
+```
+
+- `closed_loop.target_optimization`: life-cycle (NPV) optimization of the target rates with PET (`run.py`), and `target_controls.py`, which simulates the optimum and writes its monthly rates. `examples/run-target_optimization.py` runs both in `outputs/target_optimization/`. Copy the resulting `target_controls.csv` to `data/closed_loop/` to use it in the loop.
+- `closed_loop.workflow`: the closed loop with the RBF proxy, run by `examples/run-closed_loop.py`. See `src/closed_loop/workflow/README.md`.
+
+Inputs:
+- `data/config/target_optimization.yaml`, `data/config/closed_loop.yaml`: settings.
+- `data/closed_loop/`: the two deck templates, the initial and target rates, and the wind power.
+- `data/drogon_ensemble/Drogon_Mean/`: the mean Drogon model, with the restart files of its history run that start the loop. The decks read it and `include/` from `data/drogon_ensemble/`.
+
 ## Tests
 
 ```bash

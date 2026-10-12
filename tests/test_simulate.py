@@ -26,7 +26,7 @@ def test_import_dispatches_all_ensemble_folders(simulate):
     assert len(calls) == 1
     func, folders, kwargs = calls[0]
     assert func is module.run_command_in_folder
-    assert folders == [f'../../drogon_ensemble/Drogon_{i}' for i in range(50)]
+    assert folders == [f'../../data/drogon_ensemble/Drogon_{i}' for i in range(50)]
     assert kwargs == {'num_cpus': 5}
 
 

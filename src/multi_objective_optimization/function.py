@@ -2,17 +2,10 @@ import numpy as np
 
 from popt.cost_functions.epf import epf
 
-<<<<<<<< HEAD:src/multi_objective_optimization/function.py
 from facility.gas_compressor import power_demand_gas_compressor
 from facility.pump import power_demand_pump
 from facility.water_treatment import power_demand_water_treatment
 from facility.gas_turbine_system import turbine_system_consumption
-========
-from multi_objective_optimization.facility.gas_compressor import power_demand_gas_compressor
-from multi_objective_optimization.facility.pump import power_demand_pump
-from multi_objective_optimization.facility.water_treatment import power_demand_water_treatment
-from multi_objective_optimization.facility.gas_turbine_system import turbine_system_consumption
->>>>>>>> origin/main:multi_objective_optimization/tools/function.py
 
 def objectives(pred_data, input_dict, true_order, **kwargs):
 
@@ -31,8 +24,8 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     state = {}
     if 'wt' in economic_const:  # assume number of wind turbines and hydrogen storage are optimized
         state: dict = kwargs.get('state', {}) # state dictionary
-        if state is {}:
-            raise ValueError("Missing required input: x")
+        if not state:
+            raise ValueError("Missing required input: state")
         if wind_power_ens.shape[0] < ne:
             raise ValueError("Wind power ensemble size is smaller than number of ensemble members")
         # Scale the wind power ensemble
@@ -58,6 +51,12 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         h2_storage['fuel_cell'] = 33.33 / 1000  # Using hydrogen in a fuel cell typically yields about 0.03333 MWh/kg
                                                 # of H2 (Lower Heating Value (LHV): ~33.33 kWh/kg)
         h2_storage['eff'] = 0.5                 # assume 50% efficiency (TechnipFMC)
+
+    # CAPEX of wind turbines and hydrogen storage (zero when they are not optimized)
+    capex = 0.0
+    if h2_storage:
+        capex += (economic_const['wt'] * np.squeeze(state['N_WT']) +
+                  economic_const['h2'] * np.squeeze(state['N_H2']))
 
     # Define a data getter
     get_data = lambda i, key: pred_data[i+1][key].squeeze() - pred_data[i][key].squeeze()
@@ -128,11 +127,6 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
         dnpv = (revenue - expenditure)/(1 + float(economic_const['disc']))**(ndays/365)
         npv += dnpv
 
-        capex = 0.0
-        if h2_storage:
-            capex += (economic_const['wt'] * np.squeeze(state['N_WT']) +
-                      economic_const['h2'] * np.squeeze(state['N_H2']))
-
         # Append emissions
         for n in range(ne):
             co2[n].extend(co2_rate[n].tolist())
@@ -154,12 +148,8 @@ def objectives(pred_data, input_dict, true_order, **kwargs):
     #with open('npv_data.pkl', 'wb') as f:
     #    pickle.dump(data, f)
 
-<<<<<<<< HEAD:src/multi_objective_optimization/function.py
     if epf_dict and epf_dict['penalty']:
-========
-    if epf_dict:
->>>>>>>> origin/main:multi_objective_optimization/tools/function.py
-        print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict['penalty']))}') # Print epf info
+        print(f'       -----> Mean EPF-Opt penalty term: {np.mean(np.concatenate(epf_dict["penalty"]))}') # Print epf info
                 
     co2 = np.array(co2)    
 

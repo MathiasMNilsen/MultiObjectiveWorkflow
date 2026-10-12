@@ -1,0 +1,53 @@
+# Life-cycle (NPV) optimization of the target rates with PET (closed_loop.target_optimization.run).
+# The initial rates are relative to this file; savefolder is relative to the run folder.
+
+ensemble:
+  ne: 50
+  seed: 29111997
+  natural_gradient: false
+
+  # Define controls for optimization
+  controls:
+    RATE_A1:  {initial: ../closed_loop/init_rates.npz, limits: [0, 3000], std: 5%}
+    RATE_A2:  {initial: ../closed_loop/init_rates.npz, limits: [0, 4000], std: 5%}
+    RATE_A3:  {initial: ../closed_loop/init_rates.npz, limits: [0, 4000], std: 5%}
+    RATE_A4:  {initial: ../closed_loop/init_rates.npz, limits: [0, 4000], std: 5%}
+    RATE_OP5: {initial: ../closed_loop/init_rates.npz, limits: [0, 3000], std: 5%}
+    RATE_A5:  {initial: ../closed_loop/init_rates.npz, limits: [0, 8000], std: 5%}
+    RATE_A6:  {initial: ../closed_loop/init_rates.npz, limits: [0, 8000], std: 5%}
+
+optim:
+  method: Newton-CG
+  maxiter: 25
+  transform: true # optimize in the unit cube (an optimizer option, no longer an ensemble one)
+  savefolder: results_NewtonCG
+  saveit: true    # save optimize_result_{i}.npz every iteration (PET now defaults to false)
+  ftol: 1.0e-4    # previous PET default (now 1e-5)
+  step_size_adapt: 2
+  lsmethod: 0 # backtracking line search
+
+fwdsim:
+  runfile: DROGON
+  datatype: [FOPT, FGPT, FWPT, FWIT, WTHP_A5, WTHP_A6]
+  reporttype: dates
+  parallel: 50
+
+  # OPM Flow options
+  simoptions:
+    #mpi: mpirun -np 5
+    sim_flag: --parsing-strictness=low
+
+  # Report steps for simulation output
+  reportpoint:
+    start: '2020-07-01'
+    end: '2025-01-01'
+    freq: MS
+
+  # Economic parameters for NPV calculation
+  npv_const:
+    wop: 472    # approx 75 USD/bbl
+    wgp: 0.4    # USD/Sm3
+    wwp: 37     # USD/Sm3
+    wwi: 25     # USD/Sm3
+    disc: 0.08  # 8% per year
+

@@ -18,6 +18,7 @@ show_plots = True  # Whether to show plots after optimization
 # Edits below this line is not necessary for typical use cases
 # ------------------------------------------------------------
 
+
 def prepare_context():
     # Make project imports independent of current working directory.
     project_root = Path(__file__).resolve().parents[1]
@@ -44,6 +45,7 @@ def prepare_context():
 
     return kwopt, kwens, kwsim, save_root, project_root
 
+
 def run_cases(kwopt, kwens, kwsim, save_root, project_root):
     from multi_objective_optimization.pareto import optimize_pareto_point
 
@@ -58,6 +60,7 @@ def run_cases(kwopt, kwens, kwsim, save_root, project_root):
 
         # Run optimization for given weight
         optimize_pareto_point(w, kwopt=kwopt, kwens=kwens, kwsim=kwsim)
+
 
 def plot_all(kwopt, kwens, kwsim, results_root, project_root, show=False):
 
@@ -87,7 +90,7 @@ def plot_all(kwopt, kwens, kwsim, results_root, project_root, show=False):
         else:
             final_data = None
 
-        pr.plot_obj_func(2845473526.0)
+        pr.plot_obj_func(kwopt.get('obj_scaling'))
         pr.plot_state([1, 1, 1, 1, 1, 1, 1], order='C', state_actual=final_data)
         pr.plot_pareto_point_hydrogen()
 
@@ -98,7 +101,8 @@ def plot_all(kwopt, kwens, kwsim, results_root, project_root, show=False):
 
     if show:
         pr.plt.show()
-        
+
+
 if __name__ == '__main__':
     kwopt, kwens, kwsim, results_root, project_root = prepare_context()
     if run_optimization:
