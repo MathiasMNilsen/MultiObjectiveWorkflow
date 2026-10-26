@@ -64,7 +64,7 @@ In `save_folder` itself:
 
 ## Closed-loop workflow
 
-The `closed_loop` package holds the closed-loop short-term optimization (ECMOR 2026). It needs OPM Flow and the `closed-loop` extra:
+The `closed_loop` package holds the closed-loop short-term optimization. It needs OPM Flow and the `closed-loop` extra:
 
 ```bash
 python -m pip install -e .[closed-loop]
@@ -80,6 +80,14 @@ Inputs:
 - `data/config/target_optimization.yaml`, `data/config/closed_loop.yaml`: settings.
 - `data/closed_loop/`: the two deck templates, the initial and target rates, and the wind power.
 - `data/drogon_ensemble/Drogon_Mean/`: the mean Drogon model, with the restart files of its history run that start the loop. The decks read it and `include/` from `data/drogon_ensemble/`.
+
+## ECMOR 26
+
+The results for the ECMOR 2026 paper are not on `main`. They are found in the separate `ecmor` branch of this repository:
+
+```bash
+git checkout ecmor
+```
 
 ## Tests
 
