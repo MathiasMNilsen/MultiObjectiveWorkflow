@@ -1,6 +1,6 @@
 # Closed-loop short-term optimization with an RBF proxy
 
-This folder implements the closed-loop workflow of the ECMOR 2026 paper on the Drogon model. The paper is a
+This folder implements the closed-loop workflow on the Drogon model. It is a
 follow-up to Nilsen et al. (2025), with the coarse-model proxy replaced by an RBF proxy. Each 15-day control
 interval goes through five steps:
 
